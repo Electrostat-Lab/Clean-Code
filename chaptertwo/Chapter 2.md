@@ -200,52 +200,52 @@ going to reassign them.
 	```
 	Here we've introduced an even better approach by using an intention revealing name.
 ## Use pronounceable names :
-	### Example 1 :
-	#### Bad taste : 
-	```java
-	protected final Device a5 = Devices.getDeviceByName("Galaxy A5");
-	```
-	#### Good taste : 
-	```java
+### Example 1 :
+#### Bad taste : 
+```java
+protected final Device a5 = Devices.getDeviceByName("Galaxy A5");
+```
+#### Good taste : 
+```java
+protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
+```
+#### Even better taste :
+```java
+public class Samsung {
 	protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
-	```
-	#### Even better taste :
-	```java
-	public class Samsung {
-		protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
-		public final Device getGalaxyA5() {
-			return galaxyA5;
-		}
-		....
+	public final Device getGalaxyA5() {
+		return galaxyA5;
 	}
-	```
-	By looking at these different examples, we conclude that the first `a5` represents an unpronounceable name for a device, a better name would be `galaxyA5` and a more better way of naming objects is by enclosing them inside a scope and then instantiating it by creating an object of the scope : 
-	```java
-	void testExample() {
-		final Device galaxyA5 = new Samsung().getGalaxyA5();
-	}
-	```
-	### Example 2 :
-	#### Bad taste : 
-	```java
-	class DtaRcrd102 {
-		private Date genymdhms;
-		private Date modymdhms;
-		private final String pszqint = "102";
-	};
-	```
-	#### Good taste : 
-	```java
-	class Customer {
-		private Date generationTimestamp;
-		private Date modificationTimestamp;
-		private final String recordId = "102";
-	};
-	```
-	As a code reader, in the first example you could see that the object names are non-pronounceable and they represent acronyms  :
-		- genymdhms ->  generation date (year, month, day, hour, minute, and second).
-		- modymdhms ->  modification date (year, month, day, hour, minute and second).
-	Which would be far more better to be replaced by `generationDate` and `modificationDate` or `generationTimestamp` and `modificationTimestamp`.
+	....
+}
+```
+By looking at these different examples, we conclude that the first `a5` represents an unpronounceable name for a device, a better name would be `galaxyA5` and a more better way of naming objects is by enclosing them inside a scope and then instantiating it by creating an object of the scope : 
+```java
+void testExample() {
+	final Device galaxyA5 = new Samsung().getGalaxyA5();
+}
+```
+### Example 2 :
+#### Bad taste : 
+```java
+class DtaRcrd102 {
+	private Date genymdhms;
+	private Date modymdhms;
+	private final String pszqint = "102";
+};
+```
+#### Good taste : 
+```java
+class Customer {
+	private Date generationTimestamp;
+	private Date modificationTimestamp;
+	private final String recordId = "102";
+};
+```
+As a code reader, in the first example you could see that the object names are non-pronounceable and they represent acronyms  :
+	- genymdhms ->  generation date (year, month, day, hour, minute, and second).
+	- modymdhms ->  modification date (year, month, day, hour, minute and second).
+Which would be far more better to be replaced by `generationDate` and `modificationDate` or `generationTimestamp` and `modificationTimestamp`.
 ## Use Searchable names : 
 - Avoid using single-letter names and numeric constants, because they aren't locatable and also they aren't intention revealing names.
 	#### Bad taste :
@@ -280,14 +280,14 @@ going to reassign them.
 	```java 
 	int s = 0;
 	for (int i = 0; i < 34; i++) {
-	s += t[i];
+		s += t[i];
 	}
 	```
 	#### Good taste : 
 	```java
 	int sumOfTasks = 0;
 	for (int i = 0; i < Calendar.WORK_DAYS; i++) {
-	sumOfTasks += task[i];
+		sumOfTasks += task[i];
 	}
 	```
 	Here, the (i) in the loop statements is a single-letter name and it corresponds to the size of the for loop parameters, while the other names are better not be short names.
@@ -301,13 +301,13 @@ going to reassign them.
 - Hungarian notation in C takes this to a whole new levels where return and type pointers are prefixed by their type's first letter and since the gcc or C compiler didn't check for the type of pointers in the past, this approach of Hungarian notation has helped developers to keep track of pointers' types.
 - Example : 
 ```java
-protected final Device galaxyA5Device = Devices.getByBrand("Galaxy A5");
+protected final Device galaxyA5Device = Devices.getDeviceByName("Galaxy A5");
 ```
 #### New style code (modern languages) :
 - In modern languages, compilers are more sensitive to types and can check them explicitly without the need to encode the type into the pointer/variable name.
 - Example : 
 ```java
-protected final Device galaxyA5 = Devices.getByBrand("Galaxy A5");
+protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
 ```
 -- No need to encode `device` (the object type) into the name `galaxyA5`.
 ## Avoid member prefixes : 
