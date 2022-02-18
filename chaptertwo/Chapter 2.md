@@ -82,7 +82,7 @@ informative constants.
 #### Best Code :
 
 ```java
-public List<Cell> getFlaggedCells() {
+public final List<Cell> getFlaggedCells() {
     final List<Cell> flaggedCells = new List<>();
     for (final Cell cell : cells) {
           if (cell.isFlagged()) {
@@ -95,7 +95,7 @@ public List<Cell> getFlaggedCells() {
 Finally, we finishes our work by using
 the `final` keyword with the non-
 changing variables and objects, this
-tells readers our intention about these
+tells our readers our intention about these
 variables and objects that we are not
 going to reassign them.
 
@@ -228,7 +228,7 @@ void testExample() {
 ### Example 2 :
 #### Bad taste : 
 ```java
-class DtaRcrd102 {
+public class DtaRcrd102 {
 	private Date genymdhms;
 	private Date modymdhms;
 	private final String pszqint = "102";
@@ -236,7 +236,7 @@ class DtaRcrd102 {
 ```
 #### Good taste : 
 ```java
-class Customer {
+public class Customer {
 	private Date generationTimestamp;
 	private Date modificationTimestamp;
 	private final String recordId = "102";
@@ -298,7 +298,7 @@ Which would be far more better to be replaced by `generationDate` and `modificat
 - Encoded names are rarely pronounceable and easy to mis-type.
 #### Old style code (Bad taste): 
 - Old languages like `Fortran` forced encodings by making the first letter a code for the type of the variable.
-- Hungarian notation in C takes this to a whole new levels where return and type pointers are prefixed by their type's first letter and since the gcc or C compiler didn't check for the type of pointers in the past, this approach of Hungarian notation has helped developers to keep track of pointers' types.
+- Hungarian notation in C takes this to a whole new level where return and type pointers are prefixed by their type's first letter and since the gcc or C compiler didn't check for the type of pointers in the past, this approach of Hungarian notation has helped developers to keep track of pointers' types.
 - Example : 
 ```java
 protected final Device galaxyA5Device = Devices.getDeviceByName("Galaxy A5");
@@ -311,4 +311,83 @@ protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
 ```
 -- No need to encode `device` (the object type) into the name `galaxyA5`.
 ## Avoid member prefixes : 
+- In the old days class variables used to be named as : `m_device` which stands for member device, but nowdays programmers must use `this->device` in cases of C/C++ or `this.device` in cases of java.
+### Examples : 
+#### Old Style (Bad code) : 
+```java
+public class Samsung {
+	private Device m_myDevice;
+	public void setMyDevice(final Device device) {
+		m_myDevice = device;
+	}
+	....
+}
+```
+#### New Style (Good taste) : 
+```java
+public class Samsung {
+	private Device myDevice;
+	public void setMyDevice(final Device myDevice) {
+		this.myDevice = myDevice;
+	}
+	....
+}
+```
+#### In C++ or C Structs : 
+```cpp
+struct Samsung {
+	private:
+		Device* myDevice;
+	public:
+		Samsung();
+		~Samsung();
+		void setMyDevice(Device*);
+		Device* getMyDevice();
+};
+Samsung::Samsung() {
+	this->myDevice = new Device();
+}
+Samsung::~Samsung() {
+	delete myDevice();
+}
+void Samsung::setMyDevice(Device* myDevice) {
+	this->myDevice = myDevice;
+}
+Device* Samsung::getMyDevice() {
+	return this->myDevice;
+}
+....
+```
+As you can see we have ommited the member prefix m_ from the namings of classes variables.
+## Interfaces and implementations : 
+### Bad taste : 
+```java
+interface IShapeFactory {
+	....
+}
+```
+```java
+public class ShapeFactoryImp implements IShapeFactory {
+	....
+}
+```
+### Good taste : 
+```java
+interface ShapeFactory {
+	....
+}
+```
+```java
+public class Cube implements ShapeFactory {
+	....
+}
+public class Cuboid implements ShapeFactory {
+	....
+}
+public class Pyramid implements ShapeFactory {
+	....
+}
+```
+ShapeFactory is an interface for implementing geometerical shapes, so the implementation should be in the form of different geometerical shapes : Cube, Cuboid, Pyramid,....etc.
+## Avoid Mental Mapping :
 
