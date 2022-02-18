@@ -79,7 +79,7 @@ informative constants.
 ### Best Code :
 
 ```java
-public List<Cell> getFlaggedCells() {
+public final List<Cell> getFlaggedCells() {
     final List<Cell> flaggedCells = new List<>();
     for (final Cell cell : cells) {
           if (cell.isFlagged()) {
