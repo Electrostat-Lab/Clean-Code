@@ -153,5 +153,52 @@ going to reassign them.
 	```java
 	Vector3StringStorage storage;
 	```
-# 
+# Make Meaningful distinctions :
+- Don't try to satisfy the compiler with a `just it runs` code.
+	For example if we want to display to different samsung devices in the same code.
+	### Bad taste :
+	```java
+	protected final Device samsung = Device.getByBrand("Samsung");
+	protected final Device samsung2 = Device.getByBrand("Samsung");
+	```
+	Here we name our variables just to satisfy our compiler (just to run the code), so we add the noisy number to our name in `samsung2`.
 
+	### Good taste : 
+	```java
+	protected final Device galaxyE5 = Device.getByBrand("Samsung");
+	protected final Device galaxyS5 = Device.getByBrand("Samsung");
+	```
+	As you can see the second example is far better the first one, because we actually name our objects to satisfy our code readers and for maintainablity in other code sections.
+- Don't use noise keywords when naming objects.
+	### Bad taste : 
+	```java
+	protected final List<Device> devicesList = new ArrayList<>();
+	```
+	Here the noise keyword is `List` in `devicesList`.
+	### Good taste :
+	```java
+	protected final List<Device> devices = new ArrayList<>();
+	```
+	After removal of the noise word `List`, so noise words are redundant and should be abandoned.
+- Prefixes can act sometimes as noise keywords and wouldn't add anything new to the name :
+	### Bad taste :
+	```java
+	protected final Device theDevice = Devices.getDeviceByName("Galaxy A5");
+	```
+	Here `the` prefix is redundant and doesn't add to the meaning.
+	### Good taste :
+	```java
+	protected final Device device = Devices.getDeviceByName("Galaxy A5");
+	```
+	Here we've removed `the` prefix.
+	### Even better :
+	```java
+	protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
+	```
+	Here we've introduced an even better approach by using an intention revealing name.
+- Use pronounceable names :
+### Bad taste : 
+### Good taste :
+```java
+protected final Device device = Devices.getDeviceByName("Galaxy A5");
+```
