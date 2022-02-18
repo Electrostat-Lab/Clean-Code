@@ -200,52 +200,52 @@ going to reassign them.
 	```
 	Here we've introduced an even better approach by using an intention revealing name.
 ## Use pronounceable names :
-### Example 1 :
-#### Bad taste : 
-```java
-protected final Device a5 = Devices.getDeviceByName("Galaxy A5");
-```
-#### Good taste : 
-```java
-protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
-```
-#### Even better taste :
-```java
-public class Samsung {
+	### Example 1 :
+	#### Bad taste : 
+	```java
+	protected final Device a5 = Devices.getDeviceByName("Galaxy A5");
+	```
+	#### Good taste : 
+	```java
 	protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
-	public final Device getGalaxyA5() {
-		return galaxyA5;
+	```
+	#### Even better taste :
+	```java
+	public class Samsung {
+		protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
+		public final Device getGalaxyA5() {
+			return galaxyA5;
+		}
+		....
 	}
-	....
-}
-```
-By looking at these different examples, we conclude that the first `a5` represents an unpronounceable name for a device, a better name would be `galaxyA5` and a more better way of naming objects is by enclosing them inside a scope and then instantiating it by creating an object of the scope : 
-```java
-void testExample() {
-	final Device galaxyA5 = new Samsung().getGalaxyA5();
-}
-```
-### Example 2 :
-#### Bad taste : 
-```java
-class DtaRcrd102 {
-	private Date genymdhms;
-	private Date modymdhms;
-	private final String pszqint = "102";
-};
-```
-#### Good taste : 
-```java
-class Customer {
-	private Date generationTimestamp;
-	private Date modificationTimestamp;
-	private final String recordId = "102";
-};
-```
-As a code reader, in the first example you could see that the object names are non-pronounceable and they represent acronyms  :
+	```
+	By looking at these different examples, we conclude that the first `a5` represents an unpronounceable name for a device, a better name would be `galaxyA5` and a more better way of naming objects is by enclosing them inside a scope and then instantiating it by creating an object of the scope : 
+	```java
+	void testExample() {
+		final Device galaxyA5 = new Samsung().getGalaxyA5();
+	}
+	```
+	### Example 2 :
+	#### Bad taste : 
+	```java
+	class DtaRcrd102 {
+		private Date genymdhms;
+		private Date modymdhms;
+		private final String pszqint = "102";
+	};
+	```
+	#### Good taste : 
+	```java
+	class Customer {
+		private Date generationTimestamp;
+		private Date modificationTimestamp;
+		private final String recordId = "102";
+	};
+	```
+	As a code reader, in the first example you could see that the object names are non-pronounceable and they represent acronyms  :
 	- genymdhms ->  generation date (year, month, day, hour, minute, and second).
 	- modymdhms ->  modification date (year, month, day, hour, minute and second).
-Which would be far more better to be replaced by `generationDate` and `modificationDate` or `generationTimestamp` and `modificationTimestamp`.
+	Which would be far more better to be replaced by `generationDate` and `modificationDate` or `generationTimestamp` and `modificationTimestamp`.
 ## Use Searchable names : 
 - Avoid using single-letter names and numeric constants, because they aren't locatable and also they aren't intention revealing names.
 	#### Bad taste :
