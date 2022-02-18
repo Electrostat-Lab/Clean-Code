@@ -18,8 +18,7 @@ flagged cells or tiles and add them to a collection that would be the return for
 
 | Bad code  | Good code  | Even Better | Best Code |
 |-------|-------|-------|-------|
-| 
-```java 
+| ```java 
 public List<Cell> get() {
     List<Cell> flaggedCells = new List<>();
     for (Cell cell : cellsList) {
@@ -29,9 +28,7 @@ public List<Cell> get() {
      }
     return flaggedCells;
 }
-```
-| 
-```java
+```| ```java
 public List<Cell> getFlaggedCells() {
     List<Cell> flaggedCells = new List<>();
     for (Cell cell : cells) {
@@ -40,9 +37,7 @@ public List<Cell> getFlaggedCells() {
            }
      }
     return flaggedCells;
-} 
-|
-```java
+} | ```java
 public List<Cell> getFlaggedCells() {
     List<Cell> flaggedCells = new List<>();
     for (Cell cell : cells) {
@@ -52,9 +47,7 @@ public List<Cell> getFlaggedCells() {
      }
     return flaggedCells;
 }
-```
-| 
-```java
+``` | ```java
 public List<Cell> getFlaggedCells() {
     final List<Cell> flaggedCells = new List<>();
     for (final Cell cell : cells) {
@@ -64,8 +57,7 @@ public List<Cell> getFlaggedCells() {
      }
     return flaggedCells;
 }
-```
-|
+```|
 |
 Well, this code doesn’t reveal what it
 should really do by just looking on the
@@ -138,6 +130,7 @@ going to reassign them.
 	XYZControllerForEfficientStorageOfStrings xyzString;
 	```
 #### As you can see even you cannot compare between them, you need to have a deeper look to confirm the differences and some more time to know what they do !!
+
 	### Better Approach (in terms of plain language) :
 	```java
 	XYZStringHandler handler;
