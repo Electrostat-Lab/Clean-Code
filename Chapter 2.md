@@ -16,7 +16,8 @@ be more obvious to use `time` instead.
 flagged cells or tiles and add them to a collection that would be the return for this function,
 <b>What would be your best approach ?<b/>
 
-### Bad Code : ###
+### Bad Code : 
+
 ```java 
 public List<Cell> get() {
     List<Cell> flaggedCells = new List<>();
@@ -36,8 +37,8 @@ does it really do and also using bare-
 bone constant `0` in comparison (cell
 == 0) doesn’t indicate what the task
 really want to do.
----
-### Good Code : ###
+
+### Good Code : 
 ```java
 public List<Cell> getFlaggedCells() {
     List<Cell> flaggedCells = new List<>();
@@ -54,8 +55,9 @@ function name to give it a more clear
 meaning of what it really does, which
 is obviously collecting the flagged
 cells of a Game Board. 
----
-### Even better : ###
+
+### Even better : 
+
 ```java
 public List<Cell> getFlaggedCells() {
     List<Cell> flaggedCells = new List<>();
@@ -73,8 +75,9 @@ encapsulating the boolean `flagged`
 inside the accessor `isFlagged()` and
 using it instead of the vague non-
 informative constants. 
----
-### Best Code : ###
+
+### Best Code :
+
 ```java
 public List<Cell> getFlaggedCells() {
     final List<Cell> flaggedCells = new List<>();
@@ -92,7 +95,7 @@ changing variables and objects, this
 tells readers our intention about these
 variables and objects that we are not
 going to reassign them.
---------
+
 # Avoid Disinformation :
 - Avoid words whose meanings vary from a context to another.
 - Avoid using letters as variables names, this is too annoying to the reader and too vague to read, maintain and understand the code, for example : 
