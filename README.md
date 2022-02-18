@@ -1,2 +1,2 @@
 # Clean-Code
-Clean Code book summarization.
+Clean Code book summary.
