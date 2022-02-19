@@ -566,4 +566,68 @@ public class Car {
 }
 ```
 As you can see, the first example is using `setWheel()` to actually add wheels to a Car instance which is vague and not a direct intention, its better named `addWheelByIndex(int, Wheel&)` as illustrated in the second example, where `Wheels` is a class extending an `ArrayList<Wheel>`.
+## Use solution domain names : 
+- Use computer science based names, popular algorithms and design patterns in the software world.
+- Names should be more towards solution domain than to problem domain.
+- Choosing technical names for our pattern implementation is usually the most appropriate course.
+- Examples :
+```java
+/**
+* Example demonstrates simple factory pattern to
+* create Pizza object.
+* @author pavl_g.
+*/
+public abstract class PizzaFactory {
+  	protected void create() {
+		final Pizza pizza = createPizza();
+		PizzaFactory.CreatePizza(pizza);
+	}
+	protected abstract Pizza createPizza();
+	// -- Other-Factory-Methods -- 
+}
+/**
+* Restaurant Pizza.
+* @author pavl_g.
+*/
+public class Restaurant extends PizzaFactory {
+	protected Order userOrder;
+	protected Pizza[] avaialblePizzas;
+	.....
+	@Override
+	protected Pizza createPizza() {
+		return getUserOrder().getPizza();
+	}
+	public Pizza[] getMenu() {
+		return availablePizzas;
+	}
+	public Order getUserOrder() {
+		return userOrder;
+	}
+	public void addToUserOrder(final Food food) {
+		this.userOrder.add(food);
+	}
+	.....
+}
+
+/**
+* Avenue Pizza Vehicle.
+* @author pavl_g.
+*/
+public class PizzaVehicle extends PizzaFactory {
+	@Override
+	protected Pizza createPizza() {
+		return getUserOrder().getPizza();
+	}
+	public Pizza[] getMenu() {
+		return availablePizzas;
+	}
+	public Order getUserOrder() {
+		....
+	}
+	.....
+}
+
+``` 
+This example demonstrates the general usage of factory pattern that is used to create pizza in a restaurant or avenue pizza vehicle and there are different menus for each factory, this pattern can also be created in c++ using `virtual` keyword instead of `abstract` in java.
+## Use problem domain names :
 
