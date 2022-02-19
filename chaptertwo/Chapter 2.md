@@ -2,14 +2,14 @@
 - Designing variables, objects and classes with intention revealing names is a powerful concept in nowaday's code.
 
 ## Introduction :
-• This chapter will take you through best naming conventions practices owing that you
-already know java by heart.
+- This chapter will take you through best naming conventions practices owing that you
+already know oop by heart.
 
 ## Use Intention-revealing names :
-• Try as much as you can to avoid vague names that don’t clarify your intentions, for
+- Try as much as you can to avoid vague names that don’t clarify your intentions, for
 example method names that don’t clarify or show what do these methods actually do.
-• Use the names that reveal the intention and the use of the proposed context, examples :
-▪ Recall making a `Date` class that displays today’s date in a text view, so when
+- Use the names that reveal the intention and the use of the proposed context, examples :
+- Recall making a `Date` class that displays today’s date in a text view, so when
 examining the class, there found to be a variable named `double t;` which
 should stand for `time`, so instead of using a letter to describe a time, it would
 be more obvious to use `time` instead.
@@ -102,103 +102,103 @@ going to reassign them.
 ## Avoid Disinformation :
 - Avoid words whose meanings vary from a context to another.
 - Avoid using letters as variables names, this is too annoying to the reader and too vague to read, maintain and understand the code, for example : 
-	### Bad taste :
-	```java
-	final Letter l = new Letter(a);
-	// you really don’t know what you are trying to get here
-	final String s = l.get();
-	```
-	### Good taste :
-	```java
-	final Letter letter = new Letter(address);
-	// a self-explainable case
-	final String sender = letter.getData().getSender();
-	```
+### Bad taste :
+```java
+final Letter l = new Letter(a);
+// you really don’t know what you are trying to get here
+final String s = l.get();
+```
+### Good taste :
+```java
+final Letter letter = new Letter(address);
+// a self-explainable case
+final String sender = letter.getData().getSender();
+```
 - Avoid using reserved keywords such as `final` `const` `namespace` as a variable or an instance name or even a class name, for example :
-	### Bad taste : 
-	```java
-	final Station finalStation = Stations.getFinalStation();
-	```
-	### Good taste : 
-	```java
-	final Station lastStation = Stations.getLastStation();
-	```
+### Bad taste : 
+```java
+final Station finalStation = Stations.getFinalStation();
+```
+### Good taste : 
+```java
+final Station lastStation = Stations.getLastStation();
+```
 - Don’t code the container type (instance type) into the instance name, for example :
-	### Bad taste : 
-	```java
-	final List<Accounts> accountsList = new List<>();
-	```
-	### Good taste :
-	```java
-	final List<Accounts> accounts = new List<>();
-	```
+### Bad taste : 
+```java
+final List<Accounts> accountsList = new List<>();
+```
+### Good taste :
+```java
+final List<Accounts> accounts = new List<>();
+```
 - Never use variables names that vary in some letters or even words, for example :
-	### Bad taste :
-	```java
-	XYZControllerForEfficientHandlingOfStrings xyzHandler;
-	```
-	```java
-	XYZControllerForEfficientStorageOfStrings xyzString;
-	```
-	#### As you can see even you cannot compare between them, you need to have a deeper look to confirm the differences and some more time to know what they do !!
+### Bad taste :
+```java
+XYZControllerForEfficientHandlingOfStrings xyzHandler;
+```
+```java
+XYZControllerForEfficientStorageOfStrings xyzString;
+```
+#### As you can see even you cannot compare between them, you need to have a deeper look to confirm the differences and some more time to know what they do !!
 
-	### Better Approach (in terms of plain language) :
-	```java
-	XYZStringHandler handler;
-	```
-	```java
-	XYZStringStorage storage;
-	```
-	### Best Approach (in terms of physics/vector spaces) :
-	```java
-	Vector3StringHandler handler;
-	```
-	```java
-	Vector3StringStorage storage;
-	```
+### Better Approach (in terms of plain language) :
+```java
+XYZStringHandler handler;
+```
+```java
+XYZStringStorage storage;
+```
+### Best Approach (in terms of physics/vector spaces) :
+```java
+Vector3StringHandler handler;
+```
+```java
+Vector3StringStorage storage;
+```
 ## Make Meaningful distinctions :
 - Don't try to satisfy the compiler with a `just it runs` code.
-	For example if we want to display to different samsung devices in the same code.
-	### Bad taste :
-	```java
-	protected final Device samsung = Device.getByBrand("Samsung");
-	protected final Device samsung2 = Device.getByBrand("Samsung");
-	```
-	Here we name our variables just to satisfy our compiler (just to run the code), so we add the noisy number to our name in `samsung2`.
+For example if we want to display to different samsung devices in the same code.
+### Bad taste :
+```java
+protected final Device samsung = Device.getByBrand("Samsung");
+protected final Device samsung2 = Device.getByBrand("Samsung");
+```
+Here we name our variables just to satisfy our compiler (just to run the code), so we add the noisy number to our name in `samsung2`.
 
-	### Good taste : 
-	```java
-	protected final Device galaxyE5 = Device.getByBrand("Samsung");
-	protected final Device galaxyS5 = Device.getByBrand("Samsung");
-	```
-	As you can see the second example is far better the first one, because we actually name our objects to satisfy our code readers and for maintainablity in other code sections.
+### Good taste : 
+```java
+protected final Device galaxyE5 = Device.getByBrand("Samsung");
+protected final Device galaxyS5 = Device.getByBrand("Samsung");
+```
+As you can see the second example is far better the first one, because we actually name our objects to satisfy our code readers and for maintainablity in other code sections.
 - Don't use noise keywords when naming objects.
-	### Bad taste : 
-	```java
-	protected final List<Device> devicesList = new ArrayList<>();
-	```
-	Here the noise keyword is `List` in `devicesList`.
-	### Good taste :
-	```java
-	protected final List<Device> devices = new ArrayList<>();
-	```
-	After removal of the noise word `List`, so noise words are redundant and should be abandoned.
+### Bad taste : 
+```java
+protected final List<Device> devicesList = new ArrayList<>();
+```
+Here the noise keyword is `List` in `devicesList`.
+### Good taste :
+```java
+protected final List<Device> devices = new ArrayList<>();
+```
+After removal of the noise word `List`, so noise words are redundant and should be abandoned.
 - Prefixes can act sometimes as noise keywords and wouldn't add anything new to the name :
-	### Bad taste :
-	```java
-	protected final Device theDevice = Devices.getDeviceByName("Galaxy A5");
-	```
-	Here `the` prefix is redundant and doesn't add to the meaning.
-	### Good taste :
-	```java
-	protected final Device device = Devices.getDeviceByName("Galaxy A5");
-	```
-	Here we've removed `the` prefix.
-	### Even better :
-	```java
-	protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
-	```
-	Here we've introduced an even better approach by using an intention revealing name.
+### Bad taste :
+```java
+protected final Device theDevice = Devices.getDeviceByName("Galaxy A5");
+```
+Here `the` prefix is redundant and doesn't add to the meaning.
+### Good taste :
+```java
+protected final Device device = Devices.getDeviceByName("Galaxy A5");
+```
+Here we've removed `the` prefix.
+### Even better :
+```java
+protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
+```
+Here we've introduced an even better approach by using an intention revealing name.
 ## Use pronounceable names :
 ### Example 1 :
 #### Bad taste : 
@@ -248,48 +248,48 @@ As a code reader, in the first example you could see that the object names are n
 Which would be far more better to be replaced by `generationDate` and `modificationDate` or `generationTimestamp` and `modificationTimestamp`.
 ## Use Searchable names : 
 - Avoid using single-letter names and numeric constants, because they aren't locatable and also they aren't intention revealing names.
-	#### Bad taste :
-	```java
-	public final static String SG5 = "Galaxy A5";
-	```
-	#### Good taste : 
-	```java
-	public static final String GALAXY_A5 = "Galaxy A5";
-	```
-	#### Even Better : 
-	```java
-	public final class Devices {
-		public static final class Samsung {
-			public static final String GALAXY_A5 = "Galaxy A5";
-			...
-		}
-		public static final class Xiaomi {
-			public static final String REDMI_NOTE_6_PRO = "Redmi Note 6 pro";
-			...
- 		}
+#### Bad taste :
+```java
+public final static String SG5 = "Galaxy A5";
+```
+#### Good taste : 
+```java
+public static final String GALAXY_A5 = "Galaxy A5";
+```
+#### Even Better : 
+```java
+public final class Devices {
+	public static final class Samsung {
+		public static final String GALAXY_A5 = "Galaxy A5";
+		...
 	}
-	```
-	##### To call : 
-	```java
-	void testExample() {
-		final Devices.Samsung galaxyA5 = Devices.Samsung.GALAXY_A5;
+	public static final class Xiaomi {
+		public static final String REDMI_NOTE_6_PRO = "Redmi Note 6 pro";
+		...
 	}
-	```
+}
+```
+##### To call : 
+```java
+void testExample() {
+	final Devices.Samsung galaxyA5 = Devices.Samsung.GALAXY_A5;
+}
+```
 - Single-letter names could be used in naming local variables inside looping blocks or functions for example.
-	#### Bad taste : 
-	```java 
-	int s = 0;
-	for (int i = 0; i < 34; i++) {
-		s += t[i];
-	}
-	```
-	#### Good taste : 
-	```java
-	int sumOfTasks = 0;
-	for (int i = 0; i < Calendar.WORK_DAYS; i++) {
-		sumOfTasks += task[i];
-	}
-	```
+#### Bad taste : 
+```java 
+int s = 0;
+for (int i = 0; i < 34; i++) {
+	s += t[i];
+}
+```
+#### Good taste : 
+```java
+int sumOfTasks = 0;
+for (int i = 0; i < Calendar.WORK_DAYS; i++) {
+	sumOfTasks += task[i];
+}
+```
 	Here, the (i) in the loop statements is a single-letter name and it corresponds to the size of the for loop parameters, while the other names are better not be short names.
 
 ## Avoid Encodings : 
@@ -390,4 +390,98 @@ public class Pyramid implements ShapeFactory {
 ```
 ShapeFactory is an interface for implementing geometerical shapes, so the implementation should be in the form of different geometerical shapes : Cube, Cuboid, Pyramid,....etc.
 ## Avoid Mental Mapping :
+- Developers should never use single letter names in contexts other than loop counters.
+- Variables' names should be either problem domain or solution domain terms.
+- Variables' names shouldn't mentally map to other meanings.
+- Examples : 
+### Bad Code : 
+```c
+const Person* pPtr = new Person();
+pPtr->email = "Admin@gmail.com";
+const Letter* l = new Letter(pPtr);
+l->send();
+```
+- As you can see bad names at : `pPtr` and `l`.
+- No need to encode the `type pointer` into the name `person` and we shouldn't use the single letter variable `l`, instead we should define these variables using an intention revealing strategy which shows how we are going to use these variables in the context.
+### Better Code : 
+```c
+const Person* person = new Person();
+person->email = "Admin@gmail.com";
+const Letter* letter = new Letter(person);
+letter->send();
+```
+### Best Code :
+```c
+const Person* admin = new Person();
+admin->email = "Admin@gmail.com";
+const Letter* adminLetter = new Letter(admin);
+adminLetter->send();
+```
+Here we have replaced the general name `person` with a more context revealing name `admin` and the letter is replaced by `adminLetter` to be more specific.
+## Class Names :
+- Classes, Objects, Namespaces and Structs should be noun or noun phrases.
+- Avoid using `Manager`, `Processor`, `Data` or `Info` unless there the class literally does these things.
+- Examples : 
+- An Observer pattern that manages data in applications categories in an AppStore application:
+	- The subject name : `AppMarketManager.class`
+	- The subscriber class name : `AppMarket.class`
+	- Examples of subscribers : 
+```java
+public class GamesMarket extends AppMarket {
+	@Override	
+	public void update(final Item item) {
+		if (item.getCategory().is(Category.Game)) {
+			games.add(item);
+		}
+    }
+}
+public class ScienceAppMarket extends AppMarket {
+	@Override	
+	public void update(final Item item) {
+		if (item.getCategory().is(Category.ScienceApp)) {
+			scienceApps.add(item);		
+		}
+    }
+}
+....
+```
+## Method names : 
+- Methods and functions should have verb names like `savePage`, `deletePage`, `update`, `destroy()`, `add`, `remove`,...etc.
+- By convention Methods/Functions are tasks, so their names should refer to something to be done (verb).
+- In cases of overloaded constructors, using static functions (aka static initializers) to initialize the different constructors would be more meaningful.
+- Accessors (getters), mutators (setters) and predicates (declarators) must be namesd for their values and prefixed by `set` and `get` according to javabean standards.
+- Example : 
+```java
+public class NumbersFactory {
+	/**
+	* private modifier to inhibit direct instantiation.
+	*/
+	private NumbersFactory(final Random random) {
+		....
+	}
+	/**
+	* private modifier to inhibit direct instantiation.
+	*/
+	private NumbersFactory(final Constant constant) {
+		....
+	}
+	/**
+	* Creates a number from a random number.
+    * @param random a random number.
+	*/
+	public static NumberFactory FromRandomNumber(final Random random) {
+			...
+		return new NumbersFactory(random);
+	}
+	/**
+	* Creates a number from a constant number.
+    * @param constant a constant number.
+	*/
+	public static NumberFactory FromConstantNumber(final Constant constant) {
+			...
+		return new NumbersFactory(constant);
+	}
+}
+```
+
 
