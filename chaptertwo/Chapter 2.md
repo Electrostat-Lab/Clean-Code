@@ -19,9 +19,8 @@ be more obvious to use `time` instead.
 flagged cells or tiles and add them to a collection that would be the return for this function,
 <b>What would be your best approach ?<b/>
 
-#### Bad Code : 
-
-```java 
+---
+Bad Code : ```java 
 public List<Cell> get() {
     List<Cell> flaggedCells = new List<>();
     for (Cell cell : cellsList) {
@@ -32,6 +31,11 @@ public List<Cell> get() {
     return flaggedCells;
 }
 ```
+
+---
+
+
+
 Well, this code doesn’t reveal what it
 should really do by just looking on the
 function name, you need to dig deeper
