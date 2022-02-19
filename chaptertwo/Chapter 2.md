@@ -452,6 +452,10 @@ public class ScienceAppMarket extends AppMarket {
 - Accessors (getters), mutators (setters) and predicates (declarators) must be named for their values and prefixed by `set` and `get` according to javabean standards.
 - Example : 
 ```java
+/**
+* Utility to create new numbers.
+* @author pavl_g.
+*/
 public final class NumbersFactory {
 	/**
 	* private modifier to inhibit direct instantiation.
@@ -467,7 +471,7 @@ public final class NumbersFactory {
 	}
 	/**
 	* Creates a number from a random number.
-    * @param random a random number.
+        * @param random a random number.
 	*/
 	public static NumberFactory FromRandomNumber(final Random random) {
 			...
@@ -475,7 +479,7 @@ public final class NumbersFactory {
 	}
 	/**
 	* Creates a number from a constant number.
-    * @param constant a constant number.
+        * @param constant a constant number.
 	*/
 	public static NumberFactory FromConstantNumber(final Constant constant) {
 			...
