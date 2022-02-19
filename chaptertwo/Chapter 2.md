@@ -390,6 +390,7 @@ public class Pyramid implements ShapeFactory {
 ```
 ShapeFactory is an interface for implementing geometerical shapes, so the implementation should be in the form of different geometerical shapes : Cube, Cuboid, Pyramid,....etc.
 ## Avoid Mental Mapping :
+<<<<<<< HEAD
 - Developers should never use single letter names in contexts other than loop counters.
 - Variables' names should be either problem domain or solution domain terms.
 - Variables' names shouldn't mentally map to other meanings.
@@ -485,3 +486,5 @@ public class NumbersFactory {
 ```
 
 
+=======
+>>>>>>> 460a83e114f7e0ba71693c4ae7c9ec7c15c54e50
