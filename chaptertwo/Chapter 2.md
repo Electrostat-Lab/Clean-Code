@@ -32,7 +32,8 @@ public List<Cell> get() {
     return flaggedCells;
 }
 ```
-- Well, this code doesn’t reveal what it
+	
+* Well, this code doesn’t reveal what it
 should really do by just looking on the
 function name, you need to dig deeper
 into the function’s body to know what
