@@ -19,8 +19,8 @@ be more obvious to use `time` instead.
 flagged cells or tiles and add them to a collection that would be the return for this function,
 <b>What would be your best approach ?<b/>
 
----
-Bad Code : 
+#### Bad Code : 
+
 ```java 
 public List<Cell> get() {
     List<Cell> flaggedCells = new List<>();
@@ -32,11 +32,6 @@ public List<Cell> get() {
     return flaggedCells;
 }
 ```
-
----
-
-
-
 Well, this code doesn’t reveal what it
 should really do by just looking on the
 function name, you need to dig deeper
@@ -395,4 +390,3 @@ public class Pyramid implements ShapeFactory {
 ```
 ShapeFactory is an interface for implementing geometerical shapes, so the implementation should be in the form of different geometerical shapes : Cube, Cuboid, Pyramid,....etc.
 ## Avoid Mental Mapping :
-
