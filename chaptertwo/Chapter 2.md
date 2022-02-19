@@ -449,13 +449,9 @@ public class ScienceAppMarket extends AppMarket {
 - Methods and functions should have verb names like `savePage`, `deletePage`, `update`, `destroy()`, `add`, `remove`,...etc.
 - By convention Methods/Functions are tasks, so their names should refer to something to be done (verb).
 - In cases of overloaded constructors, using static functions (aka static initializers) to initialize the different constructors would be more meaningful.
-- Accessors (getters), mutators (setters) and predicates (declarators) must be namesd for their values and prefixed by `set` and `get` according to javabean standards.
+- Accessors (getters), mutators (setters) and predicates (declarators) must be named for their values and prefixed by `set` and `get` according to javabean standards.
 - Example : 
 ```java
-/**
-* A Number factory utility.
-* @author pavl_g.
-*/
 public final class NumbersFactory {
 	/**
 	* private modifier to inhibit direct instantiation.
@@ -471,15 +467,15 @@ public final class NumbersFactory {
 	}
 	/**
 	* Creates a number from a random number.
-        * @param random a random number.
+    * @param random a random number.
 	*/
 	public static NumberFactory FromRandomNumber(final Random random) {
 			...
 		return new NumbersFactory(random);
 	}
 	/**
- 	* Creates a number from a constant number.
-        * @param constant a constant number.
+	* Creates a number from a constant number.
+    * @param constant a constant number.
 	*/
 	public static NumberFactory FromConstantNumber(final Constant constant) {
 			...
@@ -487,4 +483,87 @@ public final class NumbersFactory {
 	}
 }
 ```
+## Pick one word per concept :
+- Avoid using conflicting words in the same application, example : `retrieve`, `get` and `fetch` are pretty the same, there shouldn't be different methods doing different things (or even the same things) with conflicting names. 
+- Other confusing example is having classes : `Controller`, `Manager` and `Driver` in the same context, there isn't really a difference in their meanings.
+
+## Don't use the same name to do different things or reproduce different ideas :
+- Example : 
+
+### Bad code : 
+[C/C++]
+```c
+struct Car {
+	private:
+		EngineBlock* engineBlock;
+		Wheels* wheels;
+	public:
+		void setEngineBlock(EngineBlock*);
+		void setWheel(int, Wheel&);
+	.....
+};
+
+void Car::setEngineBlock(EngineBlock* engineBlock) {
+	this->engineBlock = engineBlock;
+}
+
+void Car::setWheel(int index, Wheel& wheel) {
+	wheels.add(index, wheel);
+} 
+```
+[Java]
+```java
+public class Car {
+	private EngineBlock engineBlock;
+	private Wheels wheels;
+	.....
+	public void setEngineBlock(final EngineBlock engineBlock) {
+		this.engineBlock = engineBlock;
+	}
+	
+	public void setWheel(final int index, final Wheel wheel) {
+		wheels.add(index, wheel);
+	}
+
+}
+```
+### Better code :
+[C/C++]
+```c
+// C-Header file
+struct Car {
+	private:
+		EngineBlock* engineBlock;
+		Wheels* wheels;
+	public:
+		void setEngineBlock(EngineBlock&);
+		void addWheelByIndex(int, Wheel&);
+	.....
+};
+// C-lib file
+void Car::setEngineBlock(EngineBlock* engineBlock) {
+	this->engineBlock = engineBlock;
+}
+
+void Car::addWheelByIndex(int index, Wheel& wheel) {
+	wheels.add(index, wheel);
+} 
+```
+[Java]
+```java
+public class Car {
+	private EngineBlock engineBlock;
+	private Wheels wheels;
+	.....
+	public void setEngineBlock(final EngineBlock engineBlock) {
+		this.engineBlock = engineBlock;
+	}
+	
+	public void addWheelByIndex(final int index, final Wheel wheel) {
+		wheels.add(index, wheel);
+	}
+
+}
+```
+As you can see, the first example is using `setWheel()` to actually add wheels to a Car instance which is vague and not a direct intention, its better named `addWheelByIndex(int, Wheel&)` as illustrated in the second example, where `Wheels` is a class extending an `ArrayList<Wheel>`.
 
