@@ -32,7 +32,7 @@ public List<Cell> get() {
     return flaggedCells;
 }
 ```
-* Well, this code doesn’t reveal what it
+Well, this code doesn’t reveal what it
 should really do by just looking on the
 function name, you need to dig deeper
 into the function’s body to know what
@@ -53,7 +53,7 @@ public List<Cell> getFlaggedCells() {
     return flaggedCells;
 } 
 ```
-* In this code, we have changed the
+In this code, we have changed the
 function name to give it a more clear
 meaning of what it really does, which
 is obviously collecting the flagged
@@ -72,7 +72,7 @@ public List<Cell> getFlaggedCells() {
     return flaggedCells;
 }
 ```
-* In this code, we have even introduced
+In this code, we have even introduced
 a better approach to the `Cell` class by
 encapsulating the boolean `flagged`
 inside the accessor `isFlagged()` and
@@ -92,7 +92,7 @@ public final List<Cell> getFlaggedCells() {
     return flaggedCells;
 }
 ```
-* Finally, we finishes our work by using
+Finally, we finishes our work by using
 the `final` keyword with the non-
 changing variables and objects, this
 tells our readers our intention about these
@@ -182,23 +182,23 @@ Here the noise keyword is `List` in `devicesList`.
 ```java
 protected final List<Device> devices = new ArrayList<>();
 ```
-* After removal of the noise word `List`, so noise words are redundant and should be abandoned.
+After removal of the noise word `List`, so noise words are redundant and should be abandoned.
 - Prefixes can act sometimes as noise keywords and wouldn't add anything new to the name :
 ### Bad taste :
 ```java
 protected final Device theDevice = Devices.getDeviceByName("Galaxy A5");
 ```
-* Here `the` prefix is redundant and doesn't add to the meaning.
+Here `the` prefix is redundant and doesn't add to the meaning.
 ### Good taste :
 ```java
 protected final Device device = Devices.getDeviceByName("Galaxy A5");
 ```
-* Here we've removed `the` prefix.
+Here we've removed `the` prefix.
 ### Even better :
 ```java
 protected final Device galaxyA5 = Devices.getDeviceByName("Galaxy A5");
 ```
-* Here we've introduced an even better approach by using an intention revealing name.
+Here we've introduced an even better approach by using an intention revealing name.
 ## Use pronounceable names :
 ### Example 1 :
 #### Bad taste : 
@@ -219,7 +219,7 @@ public class Samsung {
 	....
 }
 ```
-* By looking at these different examples, we conclude that the first `a5` represents an unpronounceable name for a device, a better name would be `galaxyA5` and a more better way of naming objects is by enclosing them inside a scope and then instantiating it by creating an object of the scope : 
+By looking at these different examples, we conclude that the first `a5` represents an unpronounceable name for a device, a better name would be `galaxyA5` and a more better way of naming objects is by enclosing them inside a scope and then instantiating it by creating an object of the scope : 
 ```java
 void testExample() {
 	final Device galaxyA5 = new Samsung().getGalaxyA5();
@@ -242,7 +242,7 @@ public class Customer {
 	private final String recordId = "102";
 };
 ```
-* As a code reader, in the first example you could see that the object names are non-pronounceable and they represent acronyms  :
+As a code reader, in the first example you could see that the object names are non-pronounceable and they represent acronyms  :
 - genymdhms ->  generation date (year, month, day, hour, minute, and second).
 - modymdhms ->  modification date (year, month, day, hour, minute and second).
 Which would be far more better to be replaced by `generationDate` and `modificationDate` or `generationTimestamp` and `modificationTimestamp`.
@@ -290,7 +290,7 @@ for (int i = 0; i < Calendar.WORK_DAYS; i++) {
 	sumOfTasks += task[i];
 }
 ```
-* Here, the (i) in the loop statements is a single-letter name and it corresponds to the size of the for loop parameters, while the other names are better not be short names.
+	Here, the (i) in the loop statements is a single-letter name and it corresponds to the size of the for loop parameters, while the other names are better not be short names.
 
 ## Avoid Encodings : 
 - Encoding names to types/classes or scopes adds an extra burden of deciphering information while reading the code.
@@ -358,7 +358,7 @@ Device* Samsung::getMyDevice() {
 }
 ....
 ```
-* As you can see we have ommited the member prefix m_ from the namings of classes variables.
+As you can see we have ommited the member prefix m_ from the namings of classes variables.
 ## Interfaces and implementations : 
 ### Bad taste : 
 ```java
@@ -388,7 +388,7 @@ public class Pyramid implements ShapeFactory {
 	....
 }
 ```
-* ShapeFactory is an interface for implementing geometerical shapes, so the implementation should be in the form of different geometerical shapes : Cube, Cuboid, Pyramid,....etc.
+ShapeFactory is an interface for implementing geometerical shapes, so the implementation should be in the form of different geometerical shapes : Cube, Cuboid, Pyramid,....etc.
 ## Avoid Mental Mapping :
 - Developers should never use single letter names in contexts other than loop counters.
 - Variables' names should be either problem domain or solution domain terms.
@@ -417,7 +417,7 @@ admin->email = "Admin@gmail.com";
 const Letter* adminLetter = new Letter(admin);
 adminLetter->send();
 ```
-* Here we have replaced the general name `person` with a more context revealing name `admin` and the letter is replaced by `adminLetter` to be more specific.
+Here we have replaced the general name `person` with a more context revealing name `admin` and the letter is replaced by `adminLetter` to be more specific.
 ## Class Names :
 - Classes, Objects, Namespaces and Structs should be noun or noun phrases.
 - Avoid using `Manager`, `Processor`, `Data` or `Info` unless there the class literally does these things.
@@ -452,6 +452,10 @@ public class ScienceAppMarket extends AppMarket {
 - Accessors (getters), mutators (setters) and predicates (declarators) must be namesd for their values and prefixed by `set` and `get` according to javabean standards.
 - Example : 
 ```java
+/**
+* A Number factory utility.
+* @author pavl_g.
+*/
 public final class NumbersFactory {
 	/**
 	* private modifier to inhibit direct instantiation.
@@ -474,7 +478,7 @@ public final class NumbersFactory {
 		return new NumbersFactory(random);
 	}
 	/**
-	* Creates a number from a constant number.
+ 	* Creates a number from a constant number.
         * @param constant a constant number.
 	*/
 	public static NumberFactory FromConstantNumber(final Constant constant) {
@@ -483,5 +487,4 @@ public final class NumbersFactory {
 	}
 }
 ```
-
 
