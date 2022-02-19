@@ -20,7 +20,8 @@ flagged cells or tiles and add them to a collection that would be the return for
 <b>What would be your best approach ?<b/>
 
 ---
-Bad Code : ```java 
+Bad Code : 
+```java 
 public List<Cell> get() {
     List<Cell> flaggedCells = new List<>();
     for (Cell cell : cellsList) {
