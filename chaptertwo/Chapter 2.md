@@ -467,7 +467,7 @@ public class NumbersFactory {
 	}
 	/**
 	* Creates a number from a random number.
-    * @param random a random number.
+        * @param random a random number.
 	*/
 	public static NumberFactory FromRandomNumber(final Random random) {
 			...
@@ -475,7 +475,7 @@ public class NumbersFactory {
 	}
 	/**
 	* Creates a number from a constant number.
-    * @param constant a constant number.
+        * @param constant a constant number.
 	*/
 	public static NumberFactory FromConstantNumber(final Constant constant) {
 			...
