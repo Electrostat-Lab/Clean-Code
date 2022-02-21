@@ -7,6 +7,6 @@ Clean Code book summary.
 - How to achieve product maintainability.
 - How to refractor bad names.
 
-## More for algorithms, data structures and design patterns in java and c/c++ : 
+## More about algorithms, data structures and design patterns in java and c/c++ : 
 - https://github.com/Scrappers-glitch/Arithmos
 - Wiki : https://github.com/Scrappers-glitch/Arithmos/wiki
