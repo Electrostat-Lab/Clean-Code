@@ -711,7 +711,7 @@ By adding the classes inside pacakges, now we know what these things refer to, t
 
 
 ## Final words :
-Choosing good names need : 
+Choosing good names needs : 
 - Good descriptive skills.
 - Shared cultural background.
 - Good understanding of problem and solution domains.
