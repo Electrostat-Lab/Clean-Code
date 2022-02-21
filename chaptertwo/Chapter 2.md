@@ -634,4 +634,86 @@ public class PizzaVehicle extends PizzaFactory {
 ``` 
 This example demonstrates the general usage of factory pattern that is used to create pizza in a restaurant or avenue pizza vehicle and there are different menus for each factory, this pattern can also be created in c++ using `virtual` keyword instead of `abstract` in java.
 ## Use problem domain names :
+- Code that has more to do with problem domain concepts should have names drawn from the problem domain.
+- Use names based on the problem domain if you cannot find a well-known algorithm or pattern to use for your code.
+## Add Meaningful Context :
+- Some names may not give the right meaning when not in the right context.
+Examples : 
+```java
+public class Person {
+	private String firstName;
+	private String lastName;
+	private String street;
+	private String houseNumber;
+	private String city;
+	private String state;
+	private String zipcode;
+	....
+}
+```
+Apparently, these variables refer to an `address`, but what if we have extracted these variables into another class `Address`, would that be a better context ? 
+### Better code :
+```java
+public class Address {
+	private String firstName;
+	private String lastName;
+	private String street;
+	private String houseNumber;
+	private String city;
+	private String state;
+	private String zipcode;
+	....
+}
+public class Person {
+	private Address address;
+	....
+}
+```
+## Don't add gratutious (not necessary) context : 
+Examples :
+- Prefixing `Address` class with `Person`.
+```java
+public class PersonAddress {
+}
+```
+- Prefixing `Engine` class in a Vehicle with `Vehicle`.
+```java
+public class VehicleEngine {
+}
+```
+- Prefixing "Gas Station Deluxe" Address with `GSD`.
+```java
+public class GSDAddress {
+}
+```
 
+It's better to create the context you want using packages and classes convention.
+
+Packages are frank names for directories in programming.
+
+Examples for better contexting :
+```java
+package person;
+public class Address {
+}
+```
+```java
+package vehicle;
+public class Engine {
+}
+```
+```java
+package gsd;
+public class Address {
+}
+```
+By adding the classes inside pacakges, now we know what these things refer to, the address is the person's, the engine is the vehicle's and the last address class is the gas station's.
+
+
+## Final words :
+Choosing good names need : 
+- Good descriptive skills.
+- Shared cultural background.
+- Good understanding of problem and solution domains.
+- Some extra English knowledge within the field of the problem domain wouldn't hurt.
+- Refractoring skills also pay off.
