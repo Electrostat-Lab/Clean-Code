@@ -290,7 +290,7 @@ for (int i = 0; i < Calendar.WORK_DAYS; i++) {
 	sumOfTasks += task[i];
 }
 ```
-	Here, the (i) in the loop statements is a single-letter name and it corresponds to the size of the for loop parameters, while the other names are better not be short names.
+Here, the (i) in the loop statements is a single-letter name and it corresponds to the size of the for loop parameters, while the other names are better not be short names.
 
 ## Avoid Encodings : 
 - Encoding names to types/classes or scopes adds an extra burden of deciphering information while reading the code.
