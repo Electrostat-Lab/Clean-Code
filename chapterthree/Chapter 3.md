@@ -193,7 +193,7 @@ class EmployeeFactory {
     public: 
         EmployeeFactory();
         ~EmployeeFactory();
-        virtual Employlee& getEmployeeByRecord(const Record&);
+        virtual Employlee& getEmployeeByRecord(Record&);
 };
 #endif
 ```
@@ -230,7 +230,7 @@ EmployeeFacotryImpl() {
     ...
 }
 
-Employee& EmployeeFacotryImpl::getEmployeeByRecord(const Record& record) {
+Employee& EmployeeFacotryImpl::getEmployeeByRecord(Record& record) {
     switch(record.getType()) {
         case COMISSIONED:
             return EmployeeType::ComissionedEmployee();
