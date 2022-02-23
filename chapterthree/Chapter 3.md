@@ -114,7 +114,7 @@ In this version of code, whenever there is a new type of employee, we will add i
 * Employee.h
 * @author pavl_g.
 */
-#Ifndef ABSTRACT_EMPLOYEE
+#ifndef ABSTRACT_EMPLOYEE
 #define ABSTRACT_EMPLOYEE
 class Employee {
    public:
@@ -132,7 +132,7 @@ class Employee {
 * Employees.h
 * @author pavl_g.
 */
-#Ifndef EMPLOYEES
+#ifndef EMPLOYEES
 #define EMPLOYEES
 #include<Employee.h>
 namespace EmployeeType {
@@ -216,7 +216,6 @@ EmployeeFacotryImpl() {
     ...
 }
 
-
 Employee& EmployeeFacotryImpl::getEmployeeByRecord(const Record& record) {
     switch(record.getType()) {
         case COMISSIONED:
@@ -225,7 +224,7 @@ Employee& EmployeeFacotryImpl::getEmployeeByRecord(const Record& record) {
             return EmployeeType::HourlyEmployee();
         ....
         default:
-            
+            return EmployeeType::InvalidEmployeeType();
     }
 }
 ```
