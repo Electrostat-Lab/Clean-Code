@@ -141,6 +141,10 @@ namespace EmployeeType {
             HourlyEmployee();
             ~HourlyEmployee();
   };
+  class InvalidEmployeeType() {
+        public: 
+            InvalidEmployeeType();
+  };
 }
 #endif
 ```
@@ -164,6 +168,16 @@ Money& EmployeeType::calculatePay() {
 }
 void EmployeeType::deliverday() {
     ...
+}
+```
+```cxx
+/**
+* InvalidEmployeeType.cxx
+* @author pavl_g.
+*/
+#include<Employees.h>
+EmployeeType::InvalidEmployeeType() {
+    #error Employee not found !
 }
 ```
 - Factory pattern
