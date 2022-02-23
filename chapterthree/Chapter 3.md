@@ -109,7 +109,7 @@ public class EmployeeFactoryImpl extends EmployeeFactory {
 In this version of code, whenever there is a new type of employee, we will add it here in the factory implementation without touching the other employee classes and building chaos.
 [C/C++] Version :
 - Employee
-```c
+```cxx
 /**
 * Employee.h
 * @author pavl_g.
@@ -127,7 +127,7 @@ class Employee {
 };
 #endif
 ```
-```c
+```cxx
 /**
 * Employees.h
 * @author pavl_g.
@@ -144,7 +144,7 @@ namespace EmployeeType {
 }
 #endif
 ```
-```cpp
+```cxx
 /**
 * Employees.cxx
 * @author pavl_g.
@@ -167,7 +167,7 @@ void EmployeeType::deliverday() {
 }
 ```
 - Factory pattern
-```c
+```cxx
 /**
 * EmployeeFactory.h
 * @author pavl_g.
@@ -200,7 +200,7 @@ class EmployeeFactoryImpl: public EmployeeFactory {
 
 #endif
 ```
-```cpp
+```cxx
 /**
 * EmployeeFactoryImpl.cxx
 * @author pavl_g.
