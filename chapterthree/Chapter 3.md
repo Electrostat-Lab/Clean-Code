@@ -109,7 +109,7 @@ public class EmployeeFactoryImpl extends EmployeeFactory {
 In this version of code, whenever there is a new type of employee, we will add it here in the factory implementation without touching the other employee classes and building chaos.
 [C/C++] Version :
 - Employee
-```cpp
+```c
 /**
 * Employee.h
 * @author pavl_g.
@@ -121,13 +121,13 @@ class Employee {
         Employee();
         ~Employee();
         virtual bool isPayday();
-        virtual Money calculatePay();
+        virtual Money& calculatePay();
         virtual void deliverday();
         ....
 };
 #endif
 ```
-```cpp
+```c
 /**
 * Employees.h
 * @author pavl_g.
@@ -159,7 +159,7 @@ EmployeeType::~HourlyEmployee() {
 bool EmployeeType::isPayday() {
     ...
 }
-Money EmployeeType::calculatePay() {
+Money& EmployeeType::calculatePay() {
     ...
 }
 void EmployeeType::deliverday() {
@@ -167,6 +167,67 @@ void EmployeeType::deliverday() {
 }
 ```
 - Factory pattern
+```c
+/**
+* EmployeeFactory.h
+* @author pavl_g.
+*/
+#ifndef EMPLOYEE_FACTORY
+#define EMPLOYEE_FACTORY
+#include<Employee.h>
+class EmployeeFactory {
+    public: 
+        EmployeeFactory();
+        ~EmployeeFactory();
+        virtual Employlee& getEmployeeByRecord(const Record&);
+};
+#endif
+```
+```c
+/**
+* EmployeeFactoryImpl.h
+* @author pavl_g.
+*/
+#ifndef EMPLOYEE_FACTORY_IMPL
+#define EMPLOYEE_FACTORY_IMPL
 
+#include<EmployeeFactory.h>
+class EmployeeFactoryImpl: public EmployeeFactory {
+    public:
+        EmployeeFactoryImpl();
+        ~EmployeeFactoryImpl();
+};
+
+#endif
+```
+```cpp
+/**
+* EmployeeFactoryImpl.cxx
+* @author pavl_g.
+*/
+#include<EmployeeFactoryImpl.h>
+#include<Employees.h>
+
+EmployeeFacotryImpl() {
+    ...
+}
+
+~EmployeeFacotryImpl() {
+    ...
+}
+
+
+Employee& EmployeeFacotryImpl::getEmployeeByRecord(const Record& record) {
+    switch(record.getType()) {
+        case COMISSIONED:
+            return EmployeeType::ComissionedEmployee();
+        case HOURLY:
+            return EmployeeType::HourlyEmployee();
+        ....
+        default:
+            
+    }
+}
+```
 
 ## 
