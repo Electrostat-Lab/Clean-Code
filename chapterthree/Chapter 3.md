@@ -32,5 +32,141 @@ state that does so.
 - Overriden functions should be in the beginning in the same order from the super class.
 - Embedded interfaces and enums should be at the beginning and it would be better to be in their own respective files.
 
-## 
+## Switch statements 
+- Switch statements are large by nature.
+- It's hard to make a program with small switch statements that do one thing, because they are multi-functional by nature.
+- Example : 
+```java
+public Money calculatePay(Employee e) throws InvalidEmployeeType {
+  switch (e.type) {
+    case COMMISSIONED:
+        return calculateCommissionedPay(e);
+    case HOURLY:
+        return calculateHourlyPay(e);
+    case SALARIED:
+        return calculateSalariedPay(e);
+    default:
+        throw new InvalidEmployeeType(e.type);
+  }
+}
+```
+This function violates the following rules : 
+- Single Responsibility per principle (it must do the same thing differently for different situations -polymorphism-).
+- Open Closed Principle.
+- It must adapt with any new addtitions.
+### A better version of this function is to refractor the program to use the ABSTRACT FACTORY PATTERN :
+1) The Employee hierarchy : 
+- Employee.java
+```java
+public abstract class Employee {
+  public abstract boolean isPayday();
+  public abstract Money calculatePay();
+  public abstract void deliverPay(Money pay);
+}
+```
+- Children of employee : `HourlyEmployee`, `CommisionedEmployee`, `SalariedEmployee`.
+```java
+public class HourlyEmployee extends Employee {
+   @Override
+   public boolean isPayday() {
+        ....
+   }
+   @Override
+   public Money calculatePay() {
+        ....
+   }
+   @Override
+   public void deliverPay(Money pay) {
+        ....
+   }
+   .....
+}
+```
+2) The Factory pattern that creates a new employee object :
+- The factory class : EmployeeFactory.java
+```java
+public abstract class EmployeeFactory {
+    public abstract Employee getEmployeeByRecord(final EmployeeRecord record) throws InvalidEmployeeType;
+}
+```
+- The factory implementation : EmployeeFactoryImpl.java
+```java
+public class EmployeeFactoryImpl extends EmployeeFactory {
+    @Override
+    public Employee getEmployeeByRecord(final EmployeeRecord record) throws InvalidEmployeeType {
+        switch(record.getType()) {
+            case COMMISIONED :
+                  return new CommisionedEmployee();
+            case HOURLY :
+                  return new HourlyEmployee();
+            ....
+            default:
+                  throw new InvalidEmployeeType("Employee Type not found !");
+        }
+    }
+}
+```
+In this version of code, whenever there is a new type of employee, we will add it here in the factory implementation without touching the other employee classes and building chaos.
+[C/C++] Version :
+- Employee
+```cpp
+/**
+* Employee.h
+* @author pavl_g.
+*/
+#Ifndef ABSTRACT_EMPLOYEE
+#define ABSTRACT_EMPLOYEE
+class Employee {
+   public:
+        Employee();
+        ~Employee();
+        virtual bool isPayday();
+        virtual Money calculatePay();
+        virtual void deliverday();
+        ....
+};
+#endif
+```
+```cpp
+/**
+* Employees.h
+* @author pavl_g.
+*/
+#Ifndef EMPLOYEES
+#define EMPLOYEES
+#include<Employee.h>
+namespace EmployeeType {
+  class HourlyEmployee: public Employee {
+        public:
+            HourlyEmployee();
+            ~HourlyEmployee();
+  };
+}
+#endif
+```
+```cpp
+/**
+* Employees.cxx
+* @author pavl_g.
+*/
+#include<Employees.h>
+EmployeeType::HourlyEmployee() {
+    ...
+}
+EmployeeType::~HourlyEmployee() {
+    ...
+}
+bool EmployeeType::isPayday() {
+    ...
+}
+Money EmployeeType::calculatePay() {
+    ...
+}
+void EmployeeType::deliverday() {
+    ...
+}
+```
+- Factory pattern
 
+
+## 
