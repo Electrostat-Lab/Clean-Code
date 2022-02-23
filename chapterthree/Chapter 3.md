@@ -183,7 +183,7 @@ class EmployeeFactory {
 };
 #endif
 ```
-```c
+```cxx
 /**
 * EmployeeFactoryImpl.h
 * @author pavl_g.
