@@ -613,7 +613,7 @@ public class UserValidator {
 ```
 As you can see this funtion should only check the password for this username and return a boolean, but it should never initialize the session if it was valid.
 The refractory of this function is the removal of `Session.initialize();`.
-If you for some reasons want to build a listener for the validity check, you can either inject an action or use an abstract class with some asbtract methods :
+If you for some reasons want to build a listener for the validity check, you can either inject an action or use an abstract class with some abstract methods :
 ```java
 public interface ValidatorListener {
        void onValidationSuccess(InitializationPolicy initPolicy);
