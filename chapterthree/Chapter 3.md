@@ -575,13 +575,19 @@ You can find the full functioning code at : https://github.com/Scrappers-glitch/
 - 3 or more arguments need to be placed inside a data model class (class holding only some data and passing them as parameters to other places).
 - Arguments should be only input and the output would be via a return statement.
 - Output arguments are very confusing.
-- Examples : 
-```java
-public void add(int a, int b) {
-    a = a + b;
-}
-```
-As you can see, this example adds two numbers a and b and store the result in the first number, this is dumb, because how we would really get that result and print it to our screen ? Are we supposed to build that using variables and pass variables only to this function so we can have a visible pointer to store the result inside ?
+	- Examples : 
+	```java
+	public void add(int a, int b) {
+	    a = a + b;
+	}
+	```
+		As you can see, this example adds two numbers a and b and store the result in the first number, this is dumb, because how we would really get that result and print it to our screen ? Are we supposed to build that using variables and pass variables only to this function so we can have a visible pointer to store the result inside ?
+	- A refractor for this code : 
+	```java
+	public int add(int a, int b) {
+		return a + b;
+	}
+	```
 
 ## Functions malicious activity (side effects)
 - A function doing something that reflects to be something else not as documented or not from what can be anticipated from its name.
@@ -673,3 +679,4 @@ public class UserValidator {
 }
 ```
 As you can see, we have introduced an even better code with an intialization policy and a validation listener in which we can listen and optionally inject some actions when a validation comes to true but this should never be a mandatory procedure !! It's all the way an optional code for improvements.
+
