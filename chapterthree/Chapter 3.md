@@ -581,7 +581,8 @@ You can find the full functioning code at : https://github.com/Scrappers-glitch/
 	    a = a + b;
 	}
 	```
-		As you can see, this example adds two numbers a and b and store the result in the first number, this is dumb, because how we would really get that result and print it to our screen ? Are we supposed to build that using variables and pass variables only to this function so we can have a visible pointer to store the result inside ?
+	
+	As you can see, this example adds two numbers a and b and store the result in the first number, this is dumb, because how we would really get that result and print it to our screen ? Are we supposed to build that using variables and pass variables only to this function so we can have a visible pointer to store the result inside ?
 	- A refractor for this code : 
 	```java
 	public int add(int a, int b) {
