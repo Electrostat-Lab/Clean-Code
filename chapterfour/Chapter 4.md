@@ -271,3 +271,29 @@ void Letter::setTextBody(const char* textBody) {
 - JavaDocs in public APIs.
 
 ## Bad Comments :
+- Most comments fall under this category.
+- Hurrying in righting a comment, beacuse the process requires it, is nothing but a hack, and the result is a crap :
+    ```java
+        /**
+         * updatable via the device sensors
+         * @param pulse angle of rotation in degrees converted to pulses
+         */
+        private void steerUsingDeviceOrientation(float pulse){
+            /* doing interval(threshold) to start steering from ; ie ]-12,12[ are kept spare of steer listeners
+            note : there are no mathematical formula fo these values , they are captured from physical testing & personal conclusions*/
+            if( pulse<-12){
+                if(gameStickListeners!=null){
+                    gameStickListeners.steerRT(pulse / 10);
+                }
+            } else if(pulse>12){
+                if(gameStickListeners!=null){
+                    gameStickListeners.steerLT(pulse / 10);
+                }
+            }
+        }
+    ```
+    
+    Here the javaDocs adds no information for what this actually does, which is mapping the output pulse from a geomagenetic software sensor into a left
+    and right quadrants.
+- Mumbling (talking to yourself) : when you write comments in a hurry or redundant comments.
+- 
