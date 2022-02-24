@@ -589,18 +589,18 @@ As you can see, this example adds two numbers a and b and store the result in th
 - Example :
 ```java
 public class UserValidator {
-private Cryptographer cryptographer;
-public boolean checkPassword(String userName, String password) {
-	User user = UserGateway.findByName(userName);
-	if (user != User.NULL) {
-		String codedPhrase = user.getPhraseEncodedByPassword();
-		String phrase = cryptographer.decrypt(codedPhrase, password);
-		if ("Valid Password".equals(phrase)) {
-			Session.initialize();
-			return true;
+	private Cryptographer cryptographer;
+	public boolean checkPassword(String userName, String password) {
+		User user = UserGateway.findByName(userName);
+		if (user != User.NULL) {
+			String codedPhrase = user.getPhraseEncodedByPassword();
+			String phrase = cryptographer.decrypt(codedPhrase, password);
+			if ("Valid Password".equals(phrase)) {
+				Session.initialize();
+				return true;
+			}
 		}
-	}
-	return false;
+		return false;
 	}
 }
 ```
