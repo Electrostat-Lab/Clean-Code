@@ -380,34 +380,34 @@ namespace Meters {
 	 * @brief Calcualtes the elapsed time using the cpu clocks and returns it in milliseconds.
 	 * 
 	 */
-	struct Chronometer {
- 		private:
-			double* time;
-			double* elapsedTime;
-		public:
-			Chronometer() noexcept;
-			~Chronometer();
-			/**
-			 * @brief Get the current total cpu clock ticks since application start.
-			 * 
-			 * @return const Clock* a memory location pointing at the current cpu ticks.
-			 */
-			const Clock* getCPUClock();
-			/**
-			 * @brief Converts the cpu clocks to doubles.
-			 * 
-			 * @param cpuClock the cpuclock memory address.
-			 * @return const double* a memory address to the clocks in milliseconds.
-			 */
-			const double* toDouble(const Clock* cpuClock);
-			/**
-			 * @brief Gets the Elapsed Time which is the difference between time1 and time0.
-			 * 
-			 * @param time0 the first time.
-			 * @param time1 the second time.
-			 * @return const double* a memory address to the elapsed time between time0 and time1.
-			 */
-			const double* getElapsedTime(double* time0, double* time1);
+struct Chronometer {
+	private:
+		double* time;
+		double* elapsedTime;
+	public:
+		Chronometer() noexcept;
+		~Chronometer();
+		/**
+		 * @brief Get the current total cpu clock ticks since application start.
+		 * 
+		 * @return const Clock* a memory location pointing at the current cpu ticks.
+		 */
+		const Clock* getCPUClock();
+		/**
+		 * @brief Converts the cpu clocks to doubles.
+		 * 
+		 * @param cpuClock the cpuclock memory address.
+		 * @return const double* a memory address to the clocks in milliseconds.
+		 */
+		const double* toDouble(const Clock* cpuClock);
+		/**
+		 * @brief Gets the Elapsed Time which is the difference between time1 and time0.
+		 * 
+		 * @param time0 the first time.
+		 * @param time1 the second time.
+		 * @return const double* a memory address to the elapsed time between time0 and time1.
+		 */
+		const double* getElapsedTime(double* time0, double* time1);
 	};
 }
 #endif
@@ -425,22 +425,22 @@ Meters::Chronometer::Chronometer() noexcept {
 }
 
 const Clock* Meters::Chronometer::getCPUClock() {
-		Clock* cpuClock = new Clock();
-		*cpuClock = clock(); 
-	return cpuClock;
+	Clock* cpuClock = new Clock();
+	*cpuClock = clock(); 
+    return cpuClock;
 }			
 
 const double* Meters::Chronometer::toDouble(const Clock* cpuClock) {
-		// the cpuClock is the number of cpu ticks or cycles and by convention : CPU_F = cycles/seconds
-		// so, seconds = cycles / CPU_F.
-		// and to convert it to millisecond then multiply the result by 1000. 
-		*time = (double) (*cpuClock / CPU_FREQUENCY) * 1000;
-		 delete cpuClock;
+	// the cpuClock is the number of cpu ticks or cycles and by convention : CPU_F = cycles/seconds
+	// so, seconds = cycles / CPU_F.
+	// and to convert it to millisecond then multiply the result by 1000. 
+	*time = (double) (*cpuClock / CPU_FREQUENCY) * 1000;
+	 delete cpuClock;
    return time;
 }
 
 const double* Meters::Chronometer::getElapsedTime(double* time0, double* time1) {
-		*elapsedTime = *time0 - *time1;
+	*elapsedTime = *time0 - *time1;
     return elapsedTime;
 }
 
@@ -469,7 +469,6 @@ extern "C" {
 		double elapsedTime = *(chronograph.Meters::Chronometer::getElapsedTime(&time0, &time1));
 		return elapsedTime;
 	}
-
 }
 ```
 [Java] CallBack :
@@ -562,11 +561,25 @@ public final class Chronograph {
         return Units.convertInto(time, Units.IndexNotation.MILLI);
     }
     
-	  private native double getCPUClock();
-	  private native double getElapsedTime(final double time0, final double time1);
+    private native double getCPUClock();
+    private native double getElapsedTime(final double time0, final double time1);
 }
 ```
 As you can see some functions are large, but still not exceeding 20-25 lines which is still good, but if you want to improve, we had better restructure this api to be 10 lines at max per function.
+You can find the full functioning code at : https://github.com/Scrappers-glitch/Arithmos
 
 ## Functions arguments (parameters)
+- Functions should be of zero arguments as far as possible.
+- Arguments above 2 arguments make using a function a bit harder.
+- Arguments above 2 arguments make a function harder to test.
+- 3 or more arguments need to be placed inside a data model class (class holding only some data and passing them as parameters to other places).
+- Arguments should be only input and the output would be via a return statement.
+- Output arguments are very confusing.
+- Examples : 
+```java
+public void add(int a, int b) {
+    a = a + b;
+}
+```
+As you can see, this example adds two numbers a and b and store the result in the first number, this is dumb, because how we would really get that result and print it to our screen ? Are we supposed to build that using variables and pass variables only to this function so we can have a visible pointer to store the result inside ?
 
