@@ -583,3 +583,93 @@ public void add(int a, int b) {
 ```
 As you can see, this example adds two numbers a and b and store the result in the first number, this is dumb, because how we would really get that result and print it to our screen ? Are we supposed to build that using variables and pass variables only to this function so we can have a visible pointer to store the result inside ?
 
+## Functions malicious activity (side effects)
+- A function doing something that reflects to be something else not as documented or not from what can be anticipated from its name.
+- A function doing something not documented in addition to its primary functionality.
+- Example :
+```java
+public class UserValidator {
+private Cryptographer cryptographer;
+public boolean checkPassword(String userName, String password) {
+	User user = UserGateway.findByName(userName);
+	if (user != User.NULL) {
+		String codedPhrase = user.getPhraseEncodedByPassword();
+		String phrase = cryptographer.decrypt(codedPhrase, password);
+		if ("Valid Password".equals(phrase)) {
+			Session.initialize();
+			return true;
+		}
+	}
+	return false;
+	}
+}
+```
+As you can see this funtion should only check the password for this username and return a boolean, but it should never initialize the session if it was valid.
+The refractory of this function is the removal of `Session.initialize();`.
+If you for some reasons want to build a listener for the validity check, you can either inject an action or use an abstract class with some asbtract methods :
+```java
+public interface ValidatorListener {
+       void onValidationSuccess(InitializationPolicy initPolicy);
+       void onValidationFailure(InitializationPolicy initPolicy);
+}
+public enum InitializationPolicy {
+	INIT_ON_VALIDATION, INIT_LATER
+};
+public class LoginScreen extends Screen implements ValidatorListener {
+	@Override
+	public void onScreenInstantiation(Object[] args) {
+		final UserValidator validator = new UserValidator(args);
+		validator.setValidatorListener(this);
+		validator.setInitPolicy(InitializationPolicy.INIT_ON_VALIDATION);
+		final boolean checkResult = checkPassword("Clean-Code", "Java");
+	}
+	@Override
+	public void onValidationSuccess(InitializationPolicy initPolicy) {
+	    if (initPolicy == InitializationPolicy.INIT_ON_VALIDATION) {
+		Session.initialize();
+	    }
+	}
+	@Override
+	public void onValidationFailure(InitializationPolicy initPolicy) {
+		//TODO-Something on validation failure
+	}
+}
+public class UserValidator implements ValidatorListener {
+	private InitializationPolicy initPolicy = InitializationPolicy.INIT_LATER; 
+	private Cryptographer cryptographer;
+	private ValidatorListener validatorListener;
+	
+	public boolean checkPassword(String userName, String password) {
+		User user = UserGateway.findByName(userName);
+		if (user == User.NULL) {
+			checkValidity(validatorListener).onValidationFailure(initPolicy);
+			return false;
+		}
+		String codedPhrase = user.getPhraseEncodedByPassword();
+		String phrase = cryptographer.decrypt(codedPhrase, password);
+		if ("Valid Password".equals(phrase)) {
+			checkValidity(validatorListener).onValidationSuccess(initPolicy);
+			return true;
+		}
+		checkValidity(validatorListener).onValidationFailure(initPolicy);
+		return false;
+	}
+	public void setInitPolicy(final InitializationPolicy initPolicy) {
+		this.initPolicy = initPolicy;
+	}
+	public void setValidatorListener(final ValidatorListener validatorListener) {
+		this.validatorListener = validatorListener;
+	}
+	private ValidatorListener checkValidity(final ValidatorListener arg) {
+		if (arg == null) {
+			return new ValidatorListener() {
+				@Override public void onValidationSuccess(InitializationPolicy initPolicy) {}
+				@Override public void onValidationFailure(InitializationPolicy initPolicy) {}
+			};
+		}
+		return arg;
+	}
+	
+}
+```
+As you can see, we have introduced an even better code with an intialization policy and a validation listener in which we can listen and optionally inject some actions when a validation comes to true but this should never be a mandatory procedure !! It's all the way an optional code for improvements.
