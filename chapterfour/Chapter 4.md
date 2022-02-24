@@ -161,8 +161,97 @@ void Letter::setTextBody(const char* textBody) {
 - Informative comments (better be in the form of javaDocs).
 - Explanation of intent.
 - Clarification.
+    - Quick translation of a meaning, Example :
+    ```cxx
+    const double* Meters::Chronometer::toDouble(const Clock* cpuClock) {
+            // the cpuClock is the number of cpu ticks or cycles and by convention : CPU_F = cycles/seconds
+            // so, seconds = cycles / CPU_F.
+            // and to convert it to millisecond then multiply the result by 1000. 
+            *time = (double) (*cpuClock / CPU_FREQUENCY) * 1000;
+             delete cpuClock;
+       return time;
+    }
+    ```
 - Warning of consequences.
+    - Some actions can have side effects, other are deprecated to call or aren't called manually, so we should warn our user using the API :
+    ```java
+    /**
+         * @deprecated don't override, use {@link CompatHarness#onStartRenderer(LegacyApplication)}.
+         */
+        @Deprecated
+        @Override
+        protected void onStart() {
+            super.onStart();
+            try {
+                startRenderer(EGLConfig.getEglSurfaceDelay());
+            } catch (IllegalAccessException | InstantiationException e) {
+                compatLogger.log(Level.WARNING, e.getMessage());
+                onExceptionThrown(e);
+            }
+        }
+
+        /**
+         * @deprecated use {@link CompatHarness#onResumeRenderer(LegacyApplication)}.
+         */
+        @Deprecated
+        @Override
+        protected void onResume() {
+            super.onResume();
+            if(application != null){
+                gainFocus();
+                compatLogger.log(Level.INFO, "Game returns from the idle mode >>>>>>");
+            }
+        }
+
+        /**
+         * @deprecated never use, refer to {@link CompatHarness#onStopRenderer(LegacyApplication)}.
+         */
+        @Deprecated
+        @Override
+        protected void onStop() {
+            super.onStop();
+            if(isAppStateBound()){
+                //release the static memory
+                GameState.setApplication(null);
+                GameState.setOglesContext(null);
+            }
+            delegateAppInstanceToState();
+            //clean-up android views
+            layoutHolder.removeAllViews();
+            compatLogger.log(Level.INFO, "Game stops, delegating the app instance to the game states >>>>>>");
+        }
+    ```
+    
+    Here, you should never call these methods manually.
 - TODO comments.
+    - Somethings need to be done later or its trivial to do :
+    ```java
+    /**
+     * An Android CompatHarness Migration test.
+     * @author pavl_g.
+     */
+    public class TestCompatHarness extends CompatHarness {
+        ....
+        @Override
+        protected void onExceptionThrown(Throwable throwable) {
+            //TODO catch and deal with exceptions/errors here
+        }
+
+        @Override
+        protected void onStartRenderer(LegacyApplication app) {
+            //TODO do something when the renderer starts
+        }
+
+        @Override
+        protected void onRendererCompletion(LegacyApplication app) {
+            //TODO do something when the renderer completes
+        }
+        ....
+    }
+    ```
+    
+    An example code fragement from the new CompatHarness androidx migration of a jmonkeyengine game window shows some TODO comments to guide users what to do next
+    when overriding these methods.
 - Amplification.
 - JavaDocs in public APIs.
 ## Bad Comments :
