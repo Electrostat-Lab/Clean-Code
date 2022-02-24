@@ -243,4 +243,15 @@ Employee& EmployeeFacotryImpl::getEmployeeByRecord(Record& record) {
 }
 ```
 
-## 
+## Use descriptive names :
+- Use a self-descriptive name to the functions that do only one thing.
+- Names could be long.
+- A long descriptive name is better than a long descriptive comment.
+- Choosing self-descriptive names would clarify the intentions of the module in your mind and would help you improve it.
+- It's common to refractor some code, just to give new namings with meaningful keywords.
+- favorable restructuring of the code.
+- Use the same phrases, nouns, and verbs in the function names you choose for your modules.
+- Examples : 
+  - A Teacher-Student Platform would have a page to add some students to a teacher's class, so at first the names were : `AddStudentsScreen`, `StudentsDataReader` which can be refractored to better names as : `StudentsPortal` and `StudentsPortalReader` (which fetches the data and fills the screen with students' data), the naming now is consistent with the students portal which is the entry gate to the virtual class of a teacher.
+  - A Space craft driving simulator game was having a class named `Player` and another class named `NPC` (non-player charachter), the refractored names were : `Spacecraft` and its subclasses (`StarwarsShip`, `MarsRover`, `DarkFuryRover` ,....) inside `ship` package and `Opponent` and its subclasses (`Turrent`, `Rover`, `Submarine`) inside the `opponent` package which also applies the rule of contexting.
+
