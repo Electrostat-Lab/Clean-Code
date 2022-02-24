@@ -253,5 +253,105 @@ Employee& EmployeeFacotryImpl::getEmployeeByRecord(Record& record) {
 - Use the same phrases, nouns, and verbs in the function names you choose for your modules.
 - Examples : 
   - A Teacher-Student Platform would have a page to add some students to a teacher's class, so at first the names were : `AddStudentsScreen`, `StudentsDataReader` which can be refractored to better names as : `StudentsPortal` and `StudentsPortalReader` (which fetches the data and fills the screen with students' data), the naming now is consistent with the students portal which is the entry gate to the virtual class of a teacher.
-  - A Space craft driving simulator game was having a class named `Player` and another class named `NPC` (non-player charachter), the refractored names were : `Spacecraft` and its subclasses (`StarwarsShip`, `MarsRover`, `DarkFuryRover` ,....) inside `ship` package and `Opponent` and its subclasses (`Turrent`, `Rover`, `Submarine`) inside the `opponent` package which also applies the rule of contexting.
+  - A Spacecraft driving simulator game was having a class named `Player` and another class named `NPC` (non-player charachter), the refractored names were : `Spacecraft` and its subclasses (`StarwarsShip`, `MarsRover`, `DarkFuryRover` ,....) inside `ship` package and `Opponent` and its subclasses (`Turrent`, `Rover`, `Submarine`) inside the `opponent` package which also applies the rule of contexting.
+  - An idea of a device that measures the heart rate and sends back the result on bluetooth (RFComm) to android was suggested, the application has a class that prepares the android device to attach to the bluetooth module of that device through bluetooth serial profile (which is a bluetooth socket indeed), anyway, a good structure with good names for `RFCommSetup` class that prepares the android device would be : 
+```java
+/**
+ * Setups an RFComm communication service.
+ *
+ * @author pavl_g.
+ */
+public class RFCommSetup {
+    private final ComponentActivity context;
+    private BluetoothSPP bluetoothSPP;
+    private RFCommTracker rfCommTracker;
 
+    public RFCommSetup(final ComponentActivity context) {
+        this.context = context;
+    }
+
+    public RFCommSetup createNewSSPInstance() {
+        bluetoothSPP = new BluetoothSPP(context);
+        return this;
+    }
+
+    /**
+     * Turns the bluetooth adapter on if it's off.
+     * @return radio frequency instance.
+     */
+    public RFCommSetup prepare() {
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!bluetoothAdapter.isEnabled()){
+            context.startActivity(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE));
+        } else {
+            if (rfCommTracker != null) {
+                rfCommTracker.onPrepare();
+            }
+        }
+        return this;
+    }
+    /**
+     * Initializes the bluetooth serial communication.
+     * Must be called after {@link #prepare()} ()}.
+     *
+     * @return radio frequency instance.
+     */
+    public RFCommSetup startBluetoothService() {
+        if (bluetoothSPP.isBluetoothEnabled()) {
+            // setup service protocol -- bluetooth socket
+            bluetoothSPP.setupService();
+            bluetoothSPP.startService(BluetoothState.DEVICE_OTHER);
+            /* setup the data listener, the data listener should then fill a data model */
+            if (rfCommTracker != null) {
+                rfCommTracker.onInitialize();
+            }
+        }
+        return this;
+    }
+    public void setupRFCommTracker(final UiModel uiModel) throws InterruptedException, IOException, JSONException {
+        /* set the state tracker */
+        final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel).setupCache().prepare();
+        bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
+    }
+    /**
+     * Connects to a device after decoupling the data intent.
+     *
+     * @param data an intent holding the device's mac address.
+     */
+    public void connect(final Intent data) {
+        bluetoothSPP.connect(data);
+        if (rfCommTracker != null) {
+            rfCommTracker.onConnectionPassed();
+        }
+    }
+
+    /**
+     * Disconnects the device.
+     */
+    public void disconnect() {
+        if (bluetoothSPP != null) {
+            bluetoothSPP.disconnect();
+        }
+    }
+     /**
+     * Sets up the rfcomm tracker.
+     *
+     * @param rfCommTracker the tracker instance.
+     */
+    public void setRfCommTracker(RFCommTracker rfCommTracker) {
+        this.rfCommTracker = rfCommTracker;
+    }
+
+    public void launchDevicesScreen(final ActivityResultLauncher<Intent> activityResultLauncher) {
+        if (activityResultLauncher == null) {
+            throw new IllegalStateException("Must register a callback inside onCreate()");
+        }
+        final Intent intent = new Intent(context, DevicesScreen.class);
+        activityResultLauncher.launch(intent);
+    }
+
+    public BluetoothSPP getBluetoothSPP() {
+        return bluetoothSPP;
+    }
+```
+As you can see each method/function is by max 3 to 4 lines.
