@@ -8,7 +8,7 @@ Clean Code book summary.
 - How to refractor bad names.
 
 ## More about algorithms, data structures and design patterns in java and c/c++ : 
-- C/java/jni/invocation API algorithms : ./https://github.com/Scrappers-glitch/Arithmos
+- C/java/jni/invocation API algorithms : https://github.com/Scrappers-glitch/Arithmos
 - Wiki : https://github.com/Scrappers-glitch/Arithmos/wiki
 - C in Avr : https://github.com/Scrappers-glitch/AVR-Sandbox
 - Java in game development : https://github.com/Scrappers-glitch/CrossPlatformModule
