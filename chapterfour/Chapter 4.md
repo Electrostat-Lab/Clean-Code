@@ -53,10 +53,10 @@ Letter::Letter(Sender& sender) {
     this->sender = sender;
 }
 /**
-* Caches the receiver data inside this instance for future use.
+* Caches the receiver data for future use.
 * @param receiver a receiver instance to cache its data.
 */
-bool Letter::initCache(Receiver& receiver) {
+void Letter::initCache(Receiver& receiver) {
     if (data == NULL) {
         InvalidReceiverData("The data isn't valid !");
     }
@@ -68,7 +68,6 @@ bool Letter::initCache(Receiver& receiver) {
 
 /**
 * Sends a letter to a receiver.
-* cache in this instance.
 * @param receiver a receiver instance. 
 */
 void Letter::send(Receiver& receiver) {
@@ -272,7 +271,7 @@ void Letter::setTextBody(const char* textBody) {
 
 ## Bad Comments :
 - Most comments fall under this category.
-- Hurrying in righting a comment, beacuse the process requires it, is nothing but a hack, and the result is a crap :
+- Hurrying in writing a comment, beacuse the process requires it, is nothing but a hack, and the result is a crap :
     ```java
         /**
          * updatable via the device sensors
@@ -293,7 +292,32 @@ void Letter::setTextBody(const char* textBody) {
         }
     ```
     
-    Here the javaDocs adds no information for what this actually does, which is mapping the output pulse from a geomagenetic software sensor into a left
+    Here the javaDocs adds no information for what this actually does, which is mapping the output pulse from a geomagenetic software sensor into left
     and right quadrants.
 - Mumbling (talking to yourself) : when you write comments in a hurry or redundant comments.
-- 
+- Redundant comments 
+    - Comments that add no new information are just distractions at best.
+    ```java
+    //clean-up android views
+    layoutHolder.removeAllViews();
+    compatLogger.log(Level.INFO, "Game stops, delegating the app instance to the game states >>>>>>");
+    ```  
+    Here, the `//clean-up android views` is a redundant comment and misleading, all the users know the `removeAllViews()` detaches all widgets from a group
+    widget but it doesn't really clean them up or destroy them !!
+- Misleading comments
+- Mandated comments :
+- Journal comments.
+- Noise comments.
+- Scary noise.
+- Never favours a comment over a function or method.
+- Position markers
+- Closing braces
+- Attributions and by-lines
+- Commented-out code
+- HTML Comments
+- Non-local information
+- Too-much information
+- Inobvious connection
+- Function headers
+- Javadocs in non-public code
+ 
