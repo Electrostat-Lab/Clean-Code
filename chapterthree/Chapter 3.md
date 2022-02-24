@@ -729,7 +729,7 @@ function using `throws` keyword.
 			uiModel.setBluetoothButton(bluetoothButton);
 			uiModel.setStateTextView(stateTextView);
 			try {
-			rfComm.setupRFCommTracker(uiModel);
+				rfComm.setupRFCommTracker(uiModel);
 			} catch(JSONException | InterruptedException | InterruptedException e) {
 				e.printStacktrace();
 			}
