@@ -737,3 +737,19 @@ function using `throws` keyword.
 		.............
 	}
 	```
+## Writing functions :
+- To write functions well from the start of your project development you should follow these rules : 
+	- Break down your project into `core` and `implementation`.
+	- The core is your project infrastructure, backend and core frontend (if exists).
+	- The implementation is the final implementation (or the most higher level) in your project.
+	- The core can hold the tasks that hold the classes that function inside the implementation classes.
+	- The core can also hold database managers either local or online.
+	- The core frontend can hold custom views or custom widgets that can be used as components inside the implementation package.
+	- The core can hold any project `building blocks` in general.
+	- The Project Building blocks are classes.
+	- The Project building blocks can even be broken down into tiny chunks of tasks which we refer to as functions.
+	- At first, functions in our minds would be very large and very subtle and nested.
+	- Functions can even be broken down into even smaller tiny tasks until each function holds no more than 10 lines of code.
+	- The implementation package has classes that instantiate `GUI` and start the application.
+	- The core runs inside the implementation like the gears in a gearbox, it actually holds the functionality to our `GUI`.
+
