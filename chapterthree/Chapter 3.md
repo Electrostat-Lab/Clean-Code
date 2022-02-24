@@ -309,9 +309,10 @@ public class RFCommSetup {
         return this;
     }
     public void setupRFCommTracker(final UiModel uiModel) throws InterruptedException, IOException, JSONException {
-        /* set the state tracker */
-        final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel).setupCache().prepare();
-        bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
+	/* set the state tracker */
+	final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel);
+	bluetoothStateTracker.setupCache().prepare();
+	bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
     }
     /**
      * Connects to a device after decoupling the data intent.
@@ -694,7 +695,8 @@ function using `throws` keyword.
 	    public void setupRFCommTracker(final UiModel uiModel) {
 		try {
 			/* set the state tracker */
-			final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel).setupCache().prepare();
+			final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel);
+			bluetoothStateTracker.setupCache().prepare();
 			bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
 		} catch(Exception e) {
 
@@ -710,7 +712,8 @@ function using `throws` keyword.
 	....
 	    public void setupRFCommTracker(final UiModel uiModel) throws InterruptedException, IOException, JSONException {
 		/* set the state tracker */
-		final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel).setupCache().prepare();
+		final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel);
+		bluetoothStateTracker.setupCache().prepare();
 		bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
 	    }
 	....
