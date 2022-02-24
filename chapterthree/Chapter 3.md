@@ -681,3 +681,59 @@ public class UserValidator {
 ```
 As you can see, we have introduced an even better code with an intialization policy and a validation listener in which we can listen and optionally inject some actions when a validation comes to true but this should never be a mandatory procedure !! It's all the way an optional code for improvements.
 
+## Error codes and error handling : 
+- Avoid error codes when dealing with error handling.
+- Use exception handling instead.
+- Exception handling using `try..catch` must be in a separate method.
+- Other methods that need an exeception handling must focus on their main functionality (what they do) and delegate the exeception to the caller
+function using `throws` keyword.
+- Example :
+	- Bad code :
+	```java
+	....
+	    public void setupRFCommTracker(final UiModel uiModel) {
+		try {
+			/* set the state tracker */
+			final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel).setupCache().prepare();
+			bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
+		} catch(Exception e) {
+
+		}
+	    }
+	....
+	```
+	- Good Code :
+	
+	### In Our API :
+	
+	```java
+	....
+	    public void setupRFCommTracker(final UiModel uiModel) throws InterruptedException, IOException, JSONException {
+		/* set the state tracker */
+		final BluetoothStateTracker bluetoothStateTracker = new BluetoothStateTracker(context, uiModel).setupCache().prepare();
+		bluetoothSPP.setBluetoothConnectionListener(bluetoothStateTracker);
+	    }
+	....
+	```
+	
+	### In our application screen :
+	
+	```java
+	public class BluetoothControlScreen extends Screen {
+		@Override
+		protected void onCreate() {
+			setupRFCommTracker();
+		}
+		public void setupRFCommTracker() {
+			final UiModel uiModel = new UiModel(this);
+			uiModel.setBluetoothButton(bluetoothButton);
+			uiModel.setStateTextView(stateTextView);
+			try {
+			rfComm.setupRFCommTracker(uiModel);
+			} catch(JSONException | InterruptedException | InterruptedException e) {
+				e.printStacktrace();
+			}
+		}
+		.............
+	}
+	```
