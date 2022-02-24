@@ -353,5 +353,220 @@ public class RFCommSetup {
     public BluetoothSPP getBluetoothSPP() {
         return bluetoothSPP;
     }
+}
 ```
 As you can see each method/function is by max 3 to 4 lines.
+- You can find the functional code for this application at : https://github.com/Scrappers-glitch/Vital-Watch/blob/254f827e8f566149250948f37e8ae84ede3fce06/app/src/main/java/com/scrappers/vitalwatch/core/RFCommSetup.java#L25
+
+[C/C++] example : Operating on `CpuClock` to calculate an elapsed time of an operation (Building Chronograph) :
+```cxx
+/**
+ * @file Chronometer.h
+ * @author pavl_g.
+ * @brief Calcualtes the elapsed time for a specific algorithm using cpu clocks.
+ * @version 0.1
+ * @date 2022-02-12
+ * 
+ * @copyright Copyright (c) Scrappers.
+ * 
+ */
+#ifndef CHRONOGRAPH 
+#define CHRONOGRAPH 
+#include<ctime>
+#define Clock clock_t
+#define CPU_FREQUENCY CLOCKS_PER_SEC 
+namespace Meters { 
+	/**
+	 * @brief Calcualtes the elapsed time using the cpu clocks and returns it in milliseconds.
+	 * 
+	 */
+	struct Chronometer {
+ 		private:
+			double* time;
+			double* elapsedTime;
+		public:
+			Chronometer() noexcept;
+			~Chronometer();
+			/**
+			 * @brief Get the current total cpu clock ticks since application start.
+			 * 
+			 * @return const Clock* a memory location pointing at the current cpu ticks.
+			 */
+			const Clock* getCPUClock();
+			/**
+			 * @brief Converts the cpu clocks to doubles.
+			 * 
+			 * @param cpuClock the cpuclock memory address.
+			 * @return const double* a memory address to the clocks in milliseconds.
+			 */
+			const double* toDouble(const Clock* cpuClock);
+			/**
+			 * @brief Gets the Elapsed Time which is the difference between time1 and time0.
+			 * 
+			 * @param time0 the first time.
+			 * @param time1 the second time.
+			 * @return const double* a memory address to the elapsed time between time0 and time1.
+			 */
+			const double* getElapsedTime(double* time0, double* time1);
+	};
+}
+#endif
+```
+```cxx
+/**
+* C-lib
+* @author pavl_g.
+*/
+#include<Chronometer.h>
+
+Meters::Chronometer::Chronometer() noexcept {
+	this->time = new double();
+	this->elapsedTime = new double();
+}
+
+const Clock* Meters::Chronometer::getCPUClock() {
+		Clock* cpuClock = new Clock();
+		*cpuClock = clock(); 
+	return cpuClock;
+}			
+
+const double* Meters::Chronometer::toDouble(const Clock* cpuClock) {
+		// the cpuClock is the number of cpu ticks or cycles and by convention : CPU_F = cycles/seconds
+		// so, seconds = cycles / CPU_F.
+		// and to convert it to millisecond then multiply the result by 1000. 
+		*time = (double) (*cpuClock / CPU_FREQUENCY) * 1000;
+		 delete cpuClock;
+   return time;
+}
+
+const double* Meters::Chronometer::getElapsedTime(double* time0, double* time1) {
+		*elapsedTime = *time0 - *time1;
+    return elapsedTime;
+}
+
+Meters::Chronometer::~Chronometer() {
+	delete (this->time);
+	delete (this->elapsedTime);
+}
+```
+Usage inside java (JNI) : 
+```cxx
+/**
+* JNI code
+* @author pavl_g.
+*/
+#include<utils_Chronograph.h>
+#include<Chronometer.h>
+
+extern "C" {
+	Meters::Chronometer chronograph;
+	JNIEXPORT jdouble JNICALL Java_utils_Chronograph_getCPUClock(JNIEnv* env, jobject object) {
+		double cpuClockTime = *(chronograph.Meters::Chronometer::toDouble(chronograph.getCPUClock()));
+		return cpuClockTime;
+	}
+
+	JNIEXPORT jdouble JNICALL Java_utils_Chronograph_getElapsedTime(JNIEnv* env, jobject object, jdouble time0, jdouble time1) {
+		double elapsedTime = *(chronograph.Meters::Chronometer::getElapsedTime(&time0, &time1));
+		return elapsedTime;
+	}
+
+}
+```
+[Java] CallBack :
+```java
+package utils;
+
+import java.lang.IllegalAccessException;
+import physics.Units;
+
+/**
+ * A utility used for calculating the elapsed time of an algorithm 
+ * or various algos at the same time using the native clock speed.
+ *
+ * @author pavl_g.
+ */
+public final class Chronograph {
+    
+    private double[] records = new double[0];
+    private int nOfRec = records.length - 1;
+    private static Chronograph chronograph;
+    private static final Object chronometer = new Object();
+    
+    static {
+         System.loadLibrary("ArithmosNatives");
+    }   
+	
+    private Chronograph() {
+    }
+    
+    public static Chronograph getChronometer() {
+        if (chronograph == null) {
+             synchronized(chronometer) {
+                  if (chronograph == null) {
+                        chronograph = new Chronograph();
+                  }
+             }
+        }
+        return chronograph;
+    }
+    
+    public void recordPoint() {
+        double[] temp = new double[records.length];
+        temp = records;
+        records = new double[records.length + 1];
+        for (int i = 0; i < temp.length; i++) {
+            records[i] = temp[i];
+        }    
+        records[++nOfRec] = getCPUClock();
+    }
+    
+    public void removePoint(final int index) throws IllegalAccessException {
+        if (index < 0 || index > nOfRec) {
+            throw new IllegalAccessException("Cannot find this record !");
+        }
+        final double[] temp = new double[records.length];
+        // fill a new array without the specified index
+        for (int i = 0; i < records.length; i++) {
+            if (i == index) {
+                continue;
+            }
+            temp[i] = records[i];
+        }
+        // remove the empty times (clamp times)
+        records = new double[temp.length - 1];
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] == 0.0d) {
+                continue;
+            }
+            records[i] = temp[i];
+        }
+    }
+    
+    public double getPoint(final int index) throws IllegalAccessException  {
+        if (index < 0 || index > nOfRec) {
+            throw new IllegalAccessException("Cannot find this record : " + index);
+        }
+        return records[index];
+    }
+    
+    public void reset() {
+        records = new double[0];
+        nOfRec = records.length - 1;
+    }
+    
+    public double getElapsedTime(int index0, int index1) throws IllegalAccessException  {
+        return getElapsedTime(getPoint(index1), getPoint(index0));
+    }
+    
+    public double toSeconds(final double time) {
+        return Units.convertInto(time, Units.IndexNotation.MILLI);
+    }
+    
+	  private native double getCPUClock();
+	  private native double getElapsedTime(final double time0, final double time1);
+}
+```
+As you can see some functions are large, but still not exceeding 20-25 lines which is still good, but if you want to improve, we had better restructure this api to be 10 lines at max per function.
+
+## Functions arguments (parameters)
+
