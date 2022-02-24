@@ -173,9 +173,9 @@ void Letter::setTextBody(const char* textBody) {
     }
     ```
 - Warning of consequences.
-    - Some actions can have side effects, other are deprecated to call or aren't called manually, so we should warn our user using the API :
+    - Some actions can have side effects, others are deprecated to call or aren't called manually, so we should warn our user using the API :
     ```java
-    /**
+        /**
          * @deprecated don't override, use {@link CompatHarness#onStartRenderer(LegacyApplication)}.
          */
         @Deprecated
@@ -253,5 +253,21 @@ void Letter::setTextBody(const char* textBody) {
     An example code fragement from the new CompatHarness androidx migration of a jmonkeyengine game window shows some TODO comments to guide users what to do next
     when overriding these methods.
 - Amplification.
+    - Making sure of importance of something by illustrating it in depth or multiple times : 
+    ```java
+        /**
+         * Initializes the gameStick view that would move the vehicle along the way
+         * this is a brief way of calculations (for the illustrations) only :->
+         * @apiNote <img src='image.png' width=300 height=200/>
+         * @param stickBackground background drawable for the game Stick
+         * @param stickImage the game Stick image
+         * @param stickSize the stick size ( preferred : 100 , 150 , 200 ); in px
+         *
+         */
+    ```
+    The image here in javadocs although it's not a quite good way to write javadocs, but it still adds some sense about 
+    how a vritual joystick would actually create an analog data for us.
+
 - JavaDocs in public APIs.
+
 ## Bad Comments :
