@@ -634,7 +634,7 @@ public class LoginScreen extends Screen implements ValidatorListener {
 		//TODO-Something on validation failure
 	}
 }
-public class UserValidator implements ValidatorListener {
+public class UserValidator {
 	private InitializationPolicy initPolicy = InitializationPolicy.INIT_LATER; 
 	private Cryptographer cryptographer;
 	private ValidatorListener validatorListener;
