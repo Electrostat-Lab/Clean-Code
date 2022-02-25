@@ -279,7 +279,8 @@ void Letter::setTextBody(const char* textBody) {
          */
         private void steerUsingDeviceOrientation(float pulse){
             /* doing interval(threshold) to start steering from ; ie ]-12,12[ are kept spare of steer listeners
-            note : there are no mathematical formula fo these values , they are captured from physical testing & personal conclusions*/
+            note : there are no mathematical formula fo these values , 
+            they are captured from physical testing & personal conclusions*/
             if( pulse<-12){
                 if(gameStickListeners!=null){
                     gameStickListeners.steerRT(pulse / 10);
@@ -321,7 +322,8 @@ void Letter::setTextBody(const char* textBody) {
         //******************Helper Classes************************
 
         /**
-         * Used as a static memory to protect the game context from destruction by Activity#onDestroy().
+         * Used as a static memory to protect the game context from destruction 
+         * by Activity#onDestroy().
          * For usages :
          *
          * @see DestructionPolicy
@@ -340,15 +342,17 @@ void Letter::setTextBody(const char* textBody) {
     /**
      * Base implementation of the interface {@link Tween} for the new animation system.
      * <p>
-     * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, and it extracts the non-action {@link Tween}s
-     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions and controls their properties including {@link Action#speed}, {@link Action#length},
-     * {@link Action#mask} and {@link Action#forward}.
+     * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, 
+     * and it extracts the non-action {@link Tween}s into a {@link BaseAction}. 
+     * The net result is creating a holder that holds the Animation Actions and controls their properties including 
+     * {@link Action#speed}, {@link Action#length}, {@link Action#mask} and {@link Action#forward}.
      * <br/>
      * <p>
      * Notes :
-     * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class and {@link BaseAction} interpolates that sequence. </li>
-     * <li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates the interpolation method {@link Tween#interpolate(double)}
-     * to the {@link BlendableAction} class.</li>
+     * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class 
+     * and {@link BaseAction} interpolates that sequence. </li>
+     * <li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates 
+     * the interpolation method {@link Tween#interpolate(double)} to the {@link BlendableAction} class.</li>
      *
      * <b>Created by Nehon.</b>
      *
@@ -362,15 +366,17 @@ void Letter::setTextBody(const char* textBody) {
     /**
      * Base implementation of the interface {@link Tween} for the new animation system.
      *
-     * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, and it extracts the non-action {@link Tween}s
-     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions and controls their properties including {@link Action#speed}, {@link Action#length},
-     * {@link Action#mask} and {@link Action#forward}.
+     * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, 
+     * and it extracts the non-action {@link Tween}s
+     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions and controls their 
+     * properties including {@link Action#speed}, {@link Action#length}, {@link Action#mask} and {@link Action#forward}.
      * <br/>
      *
      * Notes :
-     * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class and {@link BaseAction} interpolates that sequence. </li>
-     * <li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates the interpolation method {@link Tween#interpolate(double)}
-     * to the {@link BlendableAction} class.</li>
+     * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class and {@link BaseAction} 
+     * interpolates that sequence. </li>
+     *<li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates the interpolation method 
+     * {@link Tween#interpolate(double)} to the {@link BlendableAction} class.</li>
      *
      * <b>Created by Nehon.</b>
      */
