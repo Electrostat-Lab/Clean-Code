@@ -368,14 +368,16 @@ void Letter::setTextBody(const char* textBody) {
      *
      * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, 
      * and it extracts the non-action {@link Tween}s
-     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions and controls their 
-     * properties including {@link Action#speed}, {@link Action#length}, {@link Action#mask} and {@link Action#forward}.
+     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions 
+     * and controls their properties including {@link Action#speed}, {@link Action#length}, 
+     * {@link Action#mask} and {@link Action#forward}.
      * <br/>
      *
      * Notes :
      * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class and {@link BaseAction} 
      * interpolates that sequence. </li>
-     *<li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates the interpolation method 
+     *<li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, 
+     *  but it delegates the interpolation method 
      * {@link Tween#interpolate(double)} to the {@link BlendableAction} class.</li>
      *
      * <b>Created by Nehon.</b>
