@@ -311,10 +311,72 @@ void Letter::setTextBody(const char* textBody) {
 - Scary noise.
 - Never favours a comment over a function or method.
 - Position markers
-- Closing braces
-- Attributions and by-lines
-- Commented-out code
-- HTML Comments
+    - They create some distractions, but aren't bad all times
+    ```java
+       private DestructionPolicy destructionPolicy = DestructionPolicy.DESTROY_WHEN_FINISH;
+        /*extra messages/data*/
+        private String crashLog = "";
+        private String glEsVersion = "";
+
+        //******************Helper Classes************************
+
+        /**
+         * Used as a static memory to protect the game context from destruction by Activity#onDestroy().
+         * For usages :
+         *
+         * @see DestructionPolicy
+         * @see JmeSurfaceView#setDestructionPolicy(DestructionPolicy)
+         */
+        protected static final class GameState {
+        .........
+    ``` 
+    `//******************Helper Classes************************` this is the position marker that marks the start of some embedded classes.
+- Closing brace comments in loops and conditions
+- Attributions and by-lines : sometimes are beneficial if the original author left the api without docs along away ago.
+- Commented-out code : it's not necessary to comment out-dated code, if its working activate it, otherwise delete it.
+- HTML Comments : too much html tags inside javadocs is distraction and noise at best.
+    - Bad code :
+    ```java
+    /**
+     * Base implementation of the interface {@link Tween} for the new animation system.
+     * <p>
+     * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, and it extracts the non-action {@link Tween}s
+     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions and controls their properties including {@link Action#speed}, {@link Action#length},
+     * {@link Action#mask} and {@link Action#forward}.
+     * <br/>
+     * <p>
+     * Notes :
+     * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class and {@link BaseAction} interpolates that sequence. </li>
+     * <li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates the interpolation method {@link Tween#interpolate(double)}
+     * to the {@link BlendableAction} class.</li>
+     *
+     * <b>Created by Nehon.</b>
+     *
+     * @see BlendableAction
+     * @see BaseAction
+     */
+    ```
+    
+    - Good code :
+    ```java
+    /**
+     * Base implementation of the interface {@link Tween} for the new animation system.
+     *
+     * The Action class collects the animation actions from an array of {@link Tween}s into {@link Action#actions}, and it extracts the non-action {@link Tween}s
+     * into a {@link BaseAction}. The net result is creating a holder that holds the Animation Actions and controls their properties including {@link Action#speed}, {@link Action#length},
+     * {@link Action#mask} and {@link Action#forward}.
+     * <br/>
+     *
+     * Notes :
+     * <li> The sequence of tweens is determined by {@link com.jme3.anim.tween.Tweens} utility class and {@link BaseAction} interpolates that sequence. </li>
+     * <li> This implementation mimics the {@link com.jme3.anim.tween.AbstractTween}, but it delegates the interpolation method {@link Tween#interpolate(double)}
+     * to the {@link BlendableAction} class.</li>
+     *
+     * <b>Created by Nehon.</b>
+     */
+    ```
+    
+    As you can see we have shrinked the docs and removed some redundant html tags.
 - Non-local information
 - Too-much information
 - Inobvious connection
